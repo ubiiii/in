@@ -1,26 +1,17 @@
 ![image](assets/readme-photo.png)
  
-# World's first AI portfolio 🤖✨  
+# Utkarsh Lubal Portfolio ✨  
 
-**Static portfolios are dead.**  
-So I built [toukoum.fr](https://toukoum.fr).
+A beautiful, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS.
 
-Instead of making you scroll endlessly, my portfolio adapts to *you*.  
-Ask a question — my AI avatar replies instantly.
+## 🚀 Features
 
-## 👇 What can you ask?
-
-- 🧠 **Tech recruiter?** Ask about my stack & results  
-- 💻 **Dev?** Dive into my code & mindset  
-- 🧑‍🤝‍🧑 **Friend or family?** See what I’ve been working on  
-
----
-
-This is not a portfolio.  
-It’s a **conversation tailored to your curiosity**.
-
-➡️ **Try it now:** [https://toukoum.fr](https://toukoum.fr)  
-*What will you ask?*
+- **Modern Design**: Clean and professional design with smooth animations
+- **Responsive**: Works perfectly on all devices
+- **Dark Mode**: Built-in dark/light theme support
+- **Fast Performance**: Optimized with Next.js 15
+- **TypeScript**: Full type safety
+- **Tailwind CSS**: Modern styling with utility classes
 
 ## 🚀 How to run
 
@@ -28,9 +19,7 @@ Want to run this project locally? Here's what you need:
 
 ### Prerequisites
 - **Node.js** (v18 or higher)
-- **pnpm** package manager
-- **OpenAI API token** (for AI chat functionality)
-- **GitHub token** (for GitHub integration features)
+- **npm** or **pnpm** package manager
 
 ### Setup
 1. **Clone the repository**
@@ -41,30 +30,49 @@ Want to run this project locally? Here's what you need:
 
 2. **Install dependencies**
    ```bash
+   npm install
+   # or
    pnpm install
    ```
 
-3. **Environment variables**
-   Create a `.env` file in the root directory:
-   ```env
-   OPENAI_API_KEY=your_openai_api_key_here
-   GITHUB_TOKEN=your_github_token_here
-   ```
-
-4. **Run the development server**
+3. **Run the development server**
    ```bash
+   npm run dev
+   # or
    pnpm dev
    ```
 
-5. **Open your browser**
+4. **Open your browser**
    Navigate to `http://localhost:3000`
 
-### Getting your **tokens**
-- **OpenAI API Key**: Get it from [platform.openai.com](https://platform.openai.com/api-keys)
-- **GitHub Token**: Generate one at [github.com/settings/tokens](https://github.com/settings/personal-access-tokens) with repo access
+## 🛠️ Tech Stack
 
+- **Next.js 15** - React framework
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Styling
+- **Framer Motion** - Animations
+- **Lucide React** - Icons
+- **Radix UI** - Accessible components
 
+## 📁 Project Structure
+
+```
+src/
+├── app/                 # Next.js app directory
+├── components/          # React components
+│   ├── ui/             # UI components
+│   └── ...             # Feature components
+├── hooks/              # Custom React hooks
+└── lib/                # Utility functions
+```
+
+## 🎨 Customization
+
+- Update the content in `src/app/page.tsx`
+- Modify styles in `src/app/globals.css`
+- Add new components in `src/components/`
+- Update theme in `src/components/theme-provider.tsx`
 
 #### 🔖 Tags
 
-`#AIPortfolio` `#InnovationInTech` `#DigitalResume` `#JobSearch` `#TechInnovation` `#WebDevelopment` `#FutureTech`
+`#Portfolio` `#NextJS` `#TypeScript` `#TailwindCSS` `#WebDevelopment` `#React` `#ModernWeb`

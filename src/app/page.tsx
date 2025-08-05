@@ -3,7 +3,7 @@
 import FluidCursor from '@/components/FluidCursor';
 import { Button } from '@/components/ui/button';
 import { GithubButton } from '@/components/ui/github-button';
-import WelcomeModal from '@/components/welcome-modal';
+import TypingEffect from '@/components/typing-effect';
 import { motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -12,44 +12,24 @@ import {
   Layers,
   PartyPopper,
   UserRoundSearch,
+  Mail,
+  Github,
+  Linkedin,
 } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-
-/* ---------- quick-question data ---------- */
-const questions = {
-  Me: 'Who are you? I want to know more about you.',
-  Projects: 'What are your projects? What are you working on right now?',
-  Skills: 'What are your skills? Give me a list of your soft and hard skills.',
-  Fun: 'What’s the craziest thing you’ve ever done? What are your hobbies?',
-  Contact: 'How can I contact you?',
-} as const;
-
-const questionConfig = [
-  { key: 'Me', color: '#329696', icon: Laugh },
-  { key: 'Projects', color: '#3E9858', icon: BriefcaseBusiness },
-  { key: 'Skills', color: '#856ED9', icon: Layers },
-  { key: 'Fun', color: '#B95F9D', icon: PartyPopper },
-  { key: 'Contact', color: '#C19433', icon: UserRoundSearch },
-] as const;
 
 /* ---------- component ---------- */
 export default function Home() {
-  const [input, setInput] = useState('');
-  const router = useRouter();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
 
-  const goToChat = (query: string) =>
-    router.push(`/chat?query=${encodeURIComponent(query)}`);
-
-  /* hero animations (unchanged) */
+  /* hero animations */
   const topElementVariants = {
     hidden: { opacity: 0, y: -60 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: 'ease', duration: 0.8 },
+      transition: { duration: 0.8 },
     },
   };
   const bottomElementVariants = {
@@ -57,18 +37,17 @@ export default function Home() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { type: 'ease', duration: 0.8, delay: 0.2 },
+      transition: { duration: 0.8, delay: 0.2 },
     },
   };
 
   useEffect(() => {
-    // Précharger les assets du chat en arrière-plan
+    // Preload assets
     const img = new window.Image();
-    img.src = '/landing-memojis.png';
+    img.src = '/avatar-landing.png';
 
-    // Précharger les vidéos aussi
     const linkWebm = document.createElement('link');
-    linkWebm.rel = 'preload'; // Note: prefetch au lieu de preload
+    linkWebm.rel = 'preload';
     linkWebm.as = 'video';
     linkWebm.href = '/final_memojis.webm';
     document.head.appendChild(linkWebm);
@@ -80,126 +59,227 @@ export default function Home() {
     document.head.appendChild(linkMp4);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setActiveSection(sectionId);
+    }
+  };
+
   return (
-    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 pb-10 md:pb-20">
+    <div className="relative min-h-screen overflow-hidden">
       {/* big blurred footer word */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center overflow-hidden">
         <div
           className="hidden bg-gradient-to-b from-neutral-500/10 to-neutral-500/0 bg-clip-text text-[10rem] leading-none font-black text-transparent select-none sm:block lg:text-[16rem]"
           style={{ marginBottom: '-2.5rem' }}
         >
-          Toukoum
+             Utkarsh
         </div>
       </div>
 
-      {/* GitHub button */}
-      <div className="absolute top-6 right-8 z-20">
-        <GithubButton
-          //targetStars={68}
-          animationDuration={1.5}
-          label="Star"
-          size={'sm'}
-          repoUrl="https://github.com/toukoum/portfolio"
-        />
-      </div>
 
-      <div className="absolute top-6 left-6 z-20">
-        <button
-          onClick={() => goToChat('Are you looking for an internship?')}
-          className="relative flex cursor-pointer items-center gap-2 rounded-full border bg-white/30 px-4 py-1.5 text-sm font-medium text-black shadow-md backdrop-blur-lg transition hover:bg-white/60 dark:border-white dark:text-white dark:hover:bg-neutral-800"
-        >
-          {/* Green pulse dot */}
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500"></span>
-          </span>
-          Looking for a talent?
-        </button>
-      </div>
-
+      {/* Hero Section */}
+      <section className="relative flex min-h-screen flex-col items-center justify-center px-4 pb-10 md:pb-20">
       {/* header */}
       <motion.div
-        className="z-1 mt-24 mb-8 flex flex-col items-center text-center md:mt-4 md:mb-12"
+          className="z-1 mt-20 mb-4 flex flex-col items-center text-center md:mt-6 md:mb-8"
         variants={topElementVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="z-100">
-          <WelcomeModal />
-        </div>
-
-        <h2 className="text-secondary-foreground mt-1 text-xl font-semibold md:text-2xl">
-          Hey, I'm Raphael 👋
+           <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-[4.5rem]">
+               &nbsp;  Hey, I'm ubii👋
+           </h1>
+                     <h2 className="text-secondary-foreground mt-4 text-xl font-semibold md:text-2xl lg:text-3xl">
+             <TypingEffect 
+               words={[
+                 'A Software Engineer',
+                 'A Cybersecurity Enthusiast',
+                 'An Ethical Hacker',
+                 'A React Native Developer',
+                 'A UI/UX Designer',
+                 'A Network Security Analyst'
+               ]}
+             />
         </h2>
-        <h1 className="text-4xl font-bold sm:text-5xl md:text-6xl lg:text-7xl">
-          AI Portfolio
-        </h1>
       </motion.div>
 
       {/* centre memoji */}
-      <div className="relative z-10 h-52 w-48 overflow-hidden sm:h-72 sm:w-72">
+        <div className="relative z-10 h-80 w-48 overflow-visible sm:h-96 sm:w-72 md:h-[28rem] md:w-80 lg:h-[32rem] lg:w-96">
         <Image
-          src="/landing-memojis.png"
+            src="/avatar-landing.png"
           alt="Hero memoji"
-          width={2000}
-          height={2000}
+            width={4000}
+            height={4000}
           priority
-          className="translate-y-14 scale-[2] object-cover"
+            className="translate-y-6 scale-[1.8] object-contain md:translate-y-8 md:scale-[1.6] lg:translate-y-10 lg:scale-[1.8]"
         />
       </div>
 
-      {/* input + quick buttons */}
+        {/* navigation buttons */}
       <motion.div
         variants={bottomElementVariants}
         initial="hidden"
         animate="visible"
-        className="z-10 mt-4 flex w-full flex-col items-center justify-center md:px-0"
-      >
-        {/* free-form question */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (input.trim()) goToChat(input.trim());
-          }}
-          className="relative w-full max-w-lg"
+          className="z-10 mt-4 md:mt-8 flex w-full flex-col items-center justify-center md:px-0"
         >
-          <div className="mx-auto flex items-center rounded-full border border-neutral-200 bg-white/30 py-2.5 pr-2 pl-6 backdrop-blur-lg transition-all hover:border-neutral-300 dark:border-neutral-700 dark:bg-neutral-800 dark:hover:border-neutral-600">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask me anything…"
-              className="w-full border-none bg-transparent text-base text-neutral-800 placeholder:text-neutral-500 focus:outline-none dark:text-neutral-200 dark:placeholder:text-neutral-500"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim()}
-              aria-label="Submit question"
-              className="flex items-center justify-center rounded-full bg-[#0171E3] p-2.5 text-white transition-colors hover:bg-blue-600 disabled:opacity-70 dark:bg-blue-600 dark:hover:bg-blue-700"
-            >
-              <ArrowRight  className="h-5 w-5" />
-            </button>
-          </div>
-        </form>
-
-        {/* quick-question grid */}
-        <div className="mt-4 grid w-full max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-5">
-          {questionConfig.map(({ key, color, icon: Icon }) => (
+          <div className="grid w-full max-w-4xl grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4 lg:gap-6">
             <Button
-              key={key}
-              onClick={() => goToChat(questions[key])}
+              onClick={() => scrollToSection('about')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:p-10"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-1 text-gray-700">
-                <Icon size={22} strokeWidth={2} color={color} />
-                <span className="text-xs font-medium sm:text-sm">{key}</span>
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+                <Laugh size={44} strokeWidth={2} color="#329696" />
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">About</span>
               </div>
             </Button>
-          ))}
-        </div>
-      </motion.div>
+            <Button
+              onClick={() => scrollToSection('projects')}
+              variant="outline"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+            >
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+                <BriefcaseBusiness size={44} strokeWidth={2} color="#3E9858" />
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Projects</span>
+              </div>
+            </Button>
+            <Button
+              onClick={() => scrollToSection('skills')}
+              variant="outline"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+            >
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+                <Layers size={44} strokeWidth={2} color="#856ED9" />
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Skills</span>
+              </div>
+            </Button>
+            <Button
+              onClick={() => scrollToSection('hobbies')}
+              variant="outline"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+            >
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+                <PartyPopper size={44} strokeWidth={2} color="#B95F9D" />
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Hobbies</span>
+          </div>
+            </Button>
+            <Button
+              onClick={() => scrollToSection('contact')}
+              variant="outline"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+            >
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+                <UserRoundSearch size={44} strokeWidth={2} color="#C19433" />
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Contact</span>
+              </div>
+            </Button>
+          </div>
+        </motion.div>
+      </section>
+
+             {/* About Section */}
+       <section id="about" className="min-h-screen flex items-center justify-center px-4 py-20">
+         <div className="max-w-4xl mx-auto w-full">
+           <h2 className="text-3xl font-bold text-center mb-8">About Me</h2>
+           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
+             <p className="text-lg leading-relaxed">
+               I'm a passionate developer who loves creating innovative solutions. 
+               I specialize in modern web technologies and enjoy building user-friendly applications.
+             </p>
+           </div>
+         </div>
+       </section>
+
+             {/* Projects Section */}
+       <section id="projects" className="min-h-screen flex items-center justify-center px-4 py-20 bg-neutral-50 dark:bg-neutral-900">
+         <div className="max-w-6xl mx-auto w-full">
+           <h2 className="text-3xl font-bold text-center mb-8">My Projects</h2>
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+             {/* Project cards would go here */}
+             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
+               <h3 className="text-xl font-semibold mb-2">Project 1</h3>
+               <p className="text-neutral-600 dark:text-neutral-400">Description of project 1</p>
+             </div>
+             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
+               <h3 className="text-xl font-semibold mb-2">Project 2</h3>
+               <p className="text-neutral-600 dark:text-neutral-400">Description of project 2</p>
+             </div>
+             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
+               <h3 className="text-xl font-semibold mb-2">Project 3</h3>
+               <p className="text-neutral-600 dark:text-neutral-400">Description of project 3</p>
+             </div>
+           </div>
+         </div>
+       </section>
+
+             {/* Skills Section */}
+       <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-20">
+         <div className="max-w-4xl mx-auto w-full">
+           <h2 className="text-3xl font-bold text-center mb-8">Skills</h2>
+           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+               <div>
+                 <h3 className="text-xl font-semibold mb-4">Technical Skills</h3>
+                 <ul className="space-y-2">
+                   <li>• JavaScript/TypeScript</li>
+                   <li>• React/Next.js</li>
+                   <li>• Node.js</li>
+                   <li>• Python</li>
+                 </ul>
+               </div>
+               <div>
+                 <h3 className="text-xl font-semibold mb-4">Soft Skills</h3>
+                 <ul className="space-y-2">
+                   <li>• Problem Solving</li>
+                   <li>• Team Collaboration</li>
+                   <li>• Communication</li>
+                   <li>• Adaptability</li>
+                 </ul>
+               </div>
+             </div>
+           </div>
+         </div>
+       </section>
+
+             {/* Hobbies Section */}
+       <section id="hobbies" className="min-h-screen flex items-center justify-center px-4 py-20 bg-neutral-50 dark:bg-neutral-900">
+         <div className="max-w-4xl mx-auto w-full">
+           <h2 className="text-3xl font-bold text-center mb-8">Hobbies & Interests</h2>
+           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
+             <p className="text-lg leading-relaxed">
+               When I'm not coding, I enjoy exploring new technologies, reading tech blogs, 
+               and staying active. I'm always curious about the latest trends in software development.
+             </p>
+           </div>
+         </div>
+       </section>
+
+             {/* Contact Section */}
+       <section id="contact" className="min-h-screen flex items-center justify-center px-4 py-20">
+         <div className="max-w-4xl mx-auto w-full">
+           <h2 className="text-3xl font-bold text-center mb-8">Get In Touch</h2>
+           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
+             <div className="flex flex-col md:flex-row justify-center items-center gap-6">
+               <Button className="flex items-center gap-2">
+                 <Mail size={20} />
+                 Contact Me
+               </Button>
+               <Button variant="outline" className="flex items-center gap-2">
+                 <Github size={20} />
+                 GitHub
+               </Button>
+               <Button variant="outline" className="flex items-center gap-2">
+                 <Linkedin size={20} />
+                 LinkedIn
+               </Button>
+             </div>
+           </div>
+         </div>
+       </section>
+
       <FluidCursor />
     </div>
   );

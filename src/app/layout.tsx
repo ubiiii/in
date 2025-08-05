@@ -13,10 +13,10 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Toukoum Portfolio",
+  title: "Utkarsh Lubal Portfolio",
   description: "Interactive portfolio with an AI-powered Memoji that answers questions about me, my skills, and my experience",
   keywords: [
-    "Toukoum", 
+    "Utkarsh Lubal", 
     "Portfolio", 
     "Developer", 
     "AI", 
@@ -29,34 +29,35 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "Toukoum",
-      url: "https://toukoum.fr",
+      name: "Utkarsh Lubal",
+      url: "https://utkarshlubal.com",
     },
   ],
-  creator: "Toukoum",
+  creator: "Utkarsh Lubal",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://toukoum.fr",
-    title: "Toukoum Portfolio",
+    url: "https://utkarshlubal.com",
+    title: "Utkarsh Lubal Portfolio",
     description: "Interactive portfolio with an AI-powered Memoji that answers questions about me",
-    siteName: "Toukoum Portfolio",
+    siteName: "Utkarsh Lubal Portfolio",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Toukoum Portfolio",
+    title: "Utkarsh Lubal Portfolio",
     description: "Interactive portfolio with an AI-powered Memoji that answers questions about me",
-    creator: "@toukoum",
+    creator: "@utkarshlubal",
   },
   icons: {
     icon: [
       {
-        url: "/favicon.svg",
+        url: "/favicons.png",
         sizes: "any",
+        type: "image/png",
       }
     ],
-    shortcut: "/favicon.svg?v=2",
-    apple: "/apple-touch-icon.svg?v=2",
+    shortcut: "/favicons.png",
+    apple: "/favicons.png",
   },
 };
 
@@ -67,10 +68,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <link rel="icon" href="/favicon.svg" sizes="any" />
-      </head>
+             <head>
+         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+         <link rel="icon" href="/favicons.png" sizes="any" type="image/png" />
+         <link rel="shortcut icon" href="/favicons.png" type="image/png" />
+         <link rel="apple-touch-icon" href="/favicons.png" />
+       </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
