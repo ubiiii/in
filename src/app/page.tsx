@@ -26,9 +26,159 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// Typing Effect Component for Recap
+const TypingRecapItem = ({ text, delay, value, valueColor }: { 
+  text: string; 
+  delay: number; 
+  value: string; 
+  valueColor: string; 
+}) => {
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [showValue, setShowValue] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTyping(true);
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+          setIsTyping(false);
+          setShowValue(true);
+        }
+      }, 50); // Typing speed
+
+      return () => clearInterval(interval);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, delay]);
+
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-gray-500 text-lg">•</span>
+      <span className="flex-1">
+        {displayText}
+        {isTyping && <span className="animate-pulse">|</span>}
+      </span>
+      {showValue && (
+        <span className={`font-semibold ${valueColor} transition-opacity duration-500`}>
+          {value}
+        </span>
+      )}
+    </div>
+  );
+};
+
+// Todo Item Component with Typing and Check Animation
+const TodoItem = ({ text, delay, shouldCheck, checkDelay }: { 
+  text: string; 
+  delay: number; 
+  shouldCheck: boolean; 
+  checkDelay: number; 
+}) => {
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const [showCheck, setShowCheck] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTyping(true);
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
+      }, 50); // Typing speed
+
+      return () => clearInterval(interval);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, delay]);
+
+  useEffect(() => {
+    const checkTimer = setTimeout(() => {
+      setShowCheck(true);
+    }, checkDelay);
+
+    return () => clearTimeout(checkTimer);
+  }, [checkDelay]);
+
+  return (
+    <div className="flex items-start gap-3">
+      <div className="w-8 h-8 mt-1 flex items-center justify-center">
+        {showCheck && shouldCheck ? (
+          <Image
+            src="/checkmark.png"
+            alt="checkmark"
+            width={32}
+            height={32}
+            className="transition-all duration-500"
+          />
+        ) : (
+          <span className="text-gray-400 text-xl">O</span>
+        )}
+      </div>
+      <span className="flex-1">
+        {displayText}
+        {isTyping && <span className="animate-pulse">|</span>}
+      </span>
+    </div>
+  );
+};
+
+// Google Search Item Component with Typing Effect
+const GoogleSearchItem = ({ text, delay }: { 
+  text: string; 
+  delay: number; 
+}) => {
+  const [displayText, setDisplayText] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsTyping(true);
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex <= text.length) {
+          setDisplayText(text.slice(0, currentIndex));
+          currentIndex++;
+        } else {
+          clearInterval(interval);
+          setIsTyping(false);
+        }
+      }, 50); // Typing speed
+
+      return () => clearInterval(interval);
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, delay]);
+
+  return (
+    <div className="flex items-start gap-2">
+      <span className="text-blue-500 mt-1">•</span>
+      <span className="flex-1">
+        {displayText}
+        {isTyping && <span className="animate-pulse">|</span>}
+      </span>
+    </div>
+  );
+};
+
 /* ---------- component ---------- */
 export default function Home() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [showProductivityRecap, setShowProductivityRecap] = useState(false);
 
   /* hero animations */
   const topElementVariants = {
@@ -101,6 +251,15 @@ export default function Home() {
     linkMp4.as = 'video';
     linkMp4.href = '/final_memojis_ios.mp4';
     document.head.appendChild(linkMp4);
+  }, []);
+
+  // Show productivity recap after all to-do items are checked
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowProductivityRecap(true);
+    }, 28000); // After all to-do items are checked
+
+    return () => clearTimeout(timer);
   }, []);
 
   // Auto-scroll functionality
@@ -307,6 +466,236 @@ export default function Home() {
             </motion.h1>
           </motion.div>
           
+          {/* Floating Containers */}
+          {/* Left Floating Container - Weekend To-Do List */}
+          <motion.div
+            className="hidden xl:block absolute left-8 top-8 bottom-8 z-20 flex items-center"
+            initial={{ opacity: 0, x: -100, y: 20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
+              <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                My Weekend To-Do List
+              </h3>
+              <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300">
+                <TodoItem 
+                  text="9hr Sleep 😴" 
+                  delay={0} 
+                  shouldCheck={false} 
+                  checkDelay={14000}
+                />
+                <TodoItem 
+                  text="Buy Coffee and milk ☕" 
+                  delay={1000} 
+                  shouldCheck={true} 
+                  checkDelay={15000}
+                />
+                <TodoItem 
+                  text="Don't Drink Coffee 😬" 
+                  delay={2000} 
+                  shouldCheck={false} 
+                  checkDelay={16000}
+                />
+                <TodoItem 
+                  text="Laundry 🧺" 
+                  delay={3000} 
+                  shouldCheck={true} 
+                  checkDelay={17000}
+                />
+                <TodoItem 
+                  text="Check Mailbox 📬" 
+                  delay={4000} 
+                  shouldCheck={true} 
+                  checkDelay={18000}
+                />
+                <TodoItem 
+                  text="Make slides of a fake TED Talk 🌌" 
+                  delay={5000} 
+                  shouldCheck={true} 
+                  checkDelay={19000}
+                />
+                <TodoItem 
+                  text="Touch Grass 🍃" 
+                  delay={6000} 
+                  shouldCheck={true} 
+                  checkDelay={20000}
+                />
+                <TodoItem 
+                  text="Doodle on a sticky note ✏️" 
+                  delay={7000} 
+                  shouldCheck={true} 
+                  checkDelay={21000}
+                />
+                <TodoItem 
+                  text="Rearrange Furniture 🪑" 
+                  delay={8000} 
+                  shouldCheck={false} 
+                  checkDelay={22000}
+                />
+                <TodoItem 
+                  text="Watch a movie 🎬" 
+                  delay={9000} 
+                  shouldCheck={true} 
+                  checkDelay={23000}
+                />
+                <TodoItem 
+                  text="Scroll Regretfully for 4hrs📱" 
+                  delay={10000} 
+                  shouldCheck={false} 
+                  checkDelay={24000}
+                />
+                <TodoItem 
+                  text="Overthink Future 🧠" 
+                  delay={11000} 
+                  shouldCheck={true} 
+                  checkDelay={25000}
+                />
+                <TodoItem 
+                  text="Eat 3 meals 🥗" 
+                  delay={12000} 
+                  shouldCheck={false} 
+                  checkDelay={26000}
+                />
+                <TodoItem 
+                  text="Ignore Notifications 🔕" 
+                  delay={13000} 
+                  shouldCheck={true} 
+                  checkDelay={27000}
+                />
+              </div>
+              
+              {/* Weekend Productivity Recap */}
+              {showProductivityRecap && (
+                <div className="mt-8 pt-6 border-t border-gray-300 dark:border-gray-600">
+                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+                  Weekend Productivity Recap
+                </h4>
+                <div className="space-y-3 text-lg text-gray-700 dark:text-gray-300">
+                  <TypingRecapItem 
+                    text="Things I Did:" 
+                    delay={0} 
+                    value="9" 
+                    valueColor="text-green-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Things I Missed:" 
+                    delay={1000} 
+                    value="5" 
+                    valueColor="text-orange-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Things I Ignored on Purpose:" 
+                    delay={2000} 
+                    value="4" 
+                    valueColor="text-red-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Most Fun part of the Day:" 
+                    delay={3000} 
+                    value="Lying on the floor" 
+                    valueColor="text-blue-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Productive Weekend?:" 
+                    delay={4000} 
+                    value="Yepp!" 
+                    valueColor="text-purple-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Readiness for Monday?:" 
+                    delay={5000} 
+                    value="none" 
+                    valueColor="text-gray-600" 
+                  />
+                </div>
+              </div>
+              )}
+            </div>
+          </motion.div>
+
+          {/* Right Floating Container - Top Google Searches */}
+          <motion.div
+            className="hidden xl:block absolute right-8 top-8 bottom-8 z-20 flex items-center"
+            initial={{ opacity: 0, x: 100, y: -20 }}
+            whileInView={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
+              <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                Me to ChatGPT
+              </h3>
+              <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300">
+                <GoogleSearchItem 
+                  text="how to recover spoiled milk?" 
+                  delay={0} 
+                />
+                <GoogleSearchItem 
+                  text="how much coffee is too much?" 
+                  delay={1000} 
+                />
+                <GoogleSearchItem 
+                  text="how i suppose to know that I'm God?" 
+                  delay={2000} 
+                />
+                <GoogleSearchItem 
+                  text="how to undo git push?" 
+                  delay={3000} 
+                />
+                <GoogleSearchItem 
+                  text="does touching grass really reduce my stress?" 
+                  delay={4000} 
+                />
+                <GoogleSearchItem 
+                  text="is it impostor syndrome or am I actually bad?" 
+                  delay={5000} 
+                />
+                <GoogleSearchItem 
+                  text="can your laptop judge you?" 
+                  delay={6000} 
+                />
+                <GoogleSearchItem 
+                  text="am I the Ted or the side character in my own story?" 
+                  delay={7000} 
+                />
+                <GoogleSearchItem 
+                  text="how to stop judging people?" 
+                  delay={8000} 
+                />
+                <GoogleSearchItem 
+                  text="how to make friends?? and why should I make friends?" 
+                  delay={9000} 
+                />
+                <GoogleSearchItem 
+                  text="were Ross and Rachel really on a break?" 
+                  delay={10000} 
+                />
+                <GoogleSearchItem 
+                  text="how to manipulate roomate to leave the apartment?" 
+                  delay={11000} 
+                />
+                <GoogleSearchItem 
+                  text="how do I know if I'm dead or alive?" 
+                  delay={12000} 
+                />
+                <GoogleSearchItem 
+                  text="how to become Dwight Schrute?" 
+                  delay={13000} 
+                />
+                <GoogleSearchItem 
+                  text="why people consider bullying is bad thing?" 
+                  delay={14000} 
+                />
+                <GoogleSearchItem 
+                  text="what's that song that goes tu tu tu tu… max wes…" 
+                  delay={15000} 
+                />
+              </div>
+            </div>
+          </motion.div>
+          
           {/* Desktop Layout - Two Columns */}
           <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
             {/* Left Column - Stacked Content */}
@@ -345,6 +734,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                    onClick={() => window.open('https://github.com/ubiiii', '_blank')}
                   >
                     <Github size={20} />
                   </Button>
@@ -352,6 +742,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                    onClick={() => window.open('https://www.linkedin.com/in/utkarsh-lubal/', '_blank')}
                   >
                     <Linkedin size={20} />
                   </Button>
@@ -359,13 +750,7 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
-                  >
-                    <Twitter size={20} />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                    onClick={() => window.open('https://www.instagram.com/heyy_ub/', '_blank')}
                   >
                     <Instagram size={20} />
                   </Button>
@@ -374,7 +759,7 @@ export default function Home() {
 
               {/* Testimonials Section */}
               <motion.div 
-                className="bg-white/30 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6"
+                className="bg-white/30 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 flex-grow"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -582,6 +967,8 @@ export default function Home() {
                 ))}
               </Swiper>
             </motion.div>
+
+
           </div>
 
 
@@ -597,20 +984,20 @@ export default function Home() {
               className="text-center space-y-6 bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
             >
               <h2 className="text-3xl font-bold text-gray-900">
-                I'm Utkarsh, a passionate engineer
+                I'm Utkarsh, {" "}
+                <span className="animated-gradient">I build for the thrill..</span>
               </h2>
               
-              <div className="space-y-4 text-base leading-relaxed text-gray-600">
+              <div className="space-y-4 text-base leading-relaxed text-gray-600" style={{ fontSize: '18px' }}>
                 <p>
-                  I'm a software engineer with a deep passion for creating innovative solutions 
-                  that make a real impact. With expertise in modern web technologies and a keen 
-                  eye for user experience, I love turning complex problems into elegant, 
-                  user-friendly applications.
+                  A curious human with a stubborn laptop. I write <strong>code that works</strong> (eventually), chase 
+                  <strong> side projects</strong> like they owe me money, and treat debugging like a sport. I believe in 
+                  <strong> fun commits</strong>, <strong>dumb ideas that might work</strong>, and the sacred ritual of yelling at my screen 
+                  before it magically fixes itself.
                 </p>
                 <p>
-                  When I'm not coding, you'll find me exploring the latest tech trends, 
-                  contributing to open-source projects, or sharing knowledge with the developer 
-                  community. 
+                  This whole journey started when I deleted one file… and my dad's new work computer  
+                  <strong> rebooted... into darkness</strong>.
                 </p>
               </div>
 
@@ -620,6 +1007,7 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                  onClick={() => window.open('https://github.com/ubiiii', '_blank')}
                 >
                   <Github size={20} />
                 </Button>
@@ -627,6 +1015,7 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                  onClick={() => window.open('https://www.linkedin.com/in/utkarsh-lubal/', '_blank')}
                 >
                   <Linkedin size={20} />
                 </Button>
@@ -634,13 +1023,7 @@ export default function Home() {
                   variant="outline"
                   size="sm"
                   className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
-                >
-                  <Twitter size={20} />
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full p-3 hover:bg-gray-100 transition-colors border-gray-300 bg-white"
+                  onClick={() => window.open('https://www.instagram.com/heyy_ub/', '_blank')}
                 >
                   <Instagram size={20} />
                 </Button>
