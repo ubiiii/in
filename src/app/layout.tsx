@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 // Load Inter font for non-Apple devices
 const inter = Inter({ 
@@ -84,8 +85,13 @@ export default function RootLayout({
           attribute="class"
           defaultTheme="light"
           enableSystem={false}
+          disableTransitionOnChange
+          storageKey="utkarsh-theme"
         >
           <main className="flex min-h-screen flex-col">
+            <div className="fixed right-4 top-4 z-50">
+              <ThemeToggle />
+            </div>
             {children}
           </main>
           <Toaster />

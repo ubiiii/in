@@ -4,7 +4,7 @@ import FluidCursor from '@/components/FluidCursor';
 import { Button } from '@/components/ui/button';
 import { GithubButton } from '@/components/ui/github-button';
 import TypingEffect from '@/components/typing-effect';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -25,6 +25,9 @@ import { Autoplay, Navigation, EffectFade, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import ProjectList from '@/components/selected-projects/ProjectList';
+import ProjectDetails from '@/components/selected-projects/ProjectDetails';
+import { PROJECTS } from '@/components/selected-projects/data';
 
 // Typing Effect Component for Recap
 const TypingRecapItem = ({ text, delay, value, valueColor }: { 
@@ -292,6 +295,33 @@ export default function Home() {
     setTimeout(() => setIsAutoPlaying(true), 3000); // Resume after 3 seconds
   };
 
+  // Right-panel selected project state
+  const [selectedProjectSlug, setSelectedProjectSlug] = useState<string | null>(null);
+  const selectedProject = selectedProjectSlug ? PROJECTS.find(p => p.slug === selectedProjectSlug) ?? null : null;
+
+  // Inject selected project details into right panel when event fires
+  useEffect(() => {
+    const handler = (e: any) => {
+      const slug = e?.detail?.slug as string | undefined;
+      if (!slug) return;
+      const root = document.getElementById('projects-details-root');
+      if (!root) return;
+      // Lazy import to avoid SSR issues
+      import('@/components/selected-projects/data').then(({ PROJECTS }) => {
+        const project = PROJECTS.find((p) => p.slug === slug) ?? null;
+        // Simple client-side render via string; for richer content we already styled the root with prose
+        if (!project) return;
+        const html = `
+          <h3 class="text-2xl md:text-3xl font-bold">${project.title}</h3>
+          ${project.description ?? ''}
+        `;
+        root.innerHTML = html;
+      });
+    };
+    window.addEventListener('project:selected', handler as any);
+    return () => window.removeEventListener('project:selected', handler as any);
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -359,12 +389,12 @@ export default function Home() {
           className="z-10 mt-4 md:mt-8 flex w-full flex-col items-center justify-center md:px-0"
         >
           <div className="grid w-full max-w-4xl grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-5 md:gap-4 lg:gap-6">
-            <Button
+                        <Button
               onClick={() => scrollToSection('about')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <Laugh size={44} strokeWidth={2} color="#329696" />
                 <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">About</span>
               </div>
@@ -372,9 +402,9 @@ export default function Home() {
             <Button
               onClick={() => scrollToSection('projects')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <BriefcaseBusiness size={44} strokeWidth={2} color="#3E9858" />
                 <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Projects</span>
               </div>
@@ -382,9 +412,9 @@ export default function Home() {
             <Button
               onClick={() => scrollToSection('skills')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <Layers size={44} strokeWidth={2} color="#856ED9" />
                 <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Skills</span>
               </div>
@@ -392,19 +422,19 @@ export default function Home() {
             <Button
               onClick={() => scrollToSection('hobbies')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <PartyPopper size={44} strokeWidth={2} color="#B95F9D" />
                 <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Hobbies</span>
-          </div>
+              </div>
             </Button>
             <Button
               onClick={() => scrollToSection('contact')}
               variant="outline"
-              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
+              className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <UserRoundSearch size={44} strokeWidth={2} color="#C19433" />
                 <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Contact</span>
               </div>
@@ -432,7 +462,7 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <motion.span 
-                className="text-black"
+                className="text-black dark:text-white"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
@@ -455,7 +485,7 @@ export default function Home() {
                 ubii
               </motion.span>
               <motion.span 
-                className="text-white"
+                className="text-white dark:text-gray-300"
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.8, ease: "easeOut" }}
@@ -475,7 +505,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
+            <div className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
               <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 My Weekend To-Do List
               </h3>
@@ -623,7 +653,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
+            <div className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
               <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 Me to ChatGPT
               </h3>
@@ -706,7 +736,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ once: true }}
-                className="space-y-6 bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg"
+                className="space-y-6 bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg"
               >
                 <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
                   I'm Utkarsh, {" "}
@@ -759,7 +789,7 @@ export default function Home() {
 
               {/* Testimonials Section */}
               <motion.div 
-                className="bg-white/30 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 flex-grow"
+                className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 flex-grow"
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -930,7 +960,7 @@ export default function Home() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="relative bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg h-full"
+              className="relative bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg h-full"
             >
               <Swiper
                 ref={desktopSwiperRef}
@@ -981,7 +1011,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="text-center space-y-6 bg-white rounded-2xl p-8 border border-gray-200 shadow-lg"
+              className="text-center space-y-6 bg-white dark:bg-black/20 rounded-2xl p-8 border border-gray-200 dark:border-neutral-700 shadow-lg"
             >
               <h2 className="text-3xl font-bold text-gray-900">
                 I'm Utkarsh, {" "}
@@ -1036,7 +1066,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="flex justify-center bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg"
+              className="flex justify-center bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg"
             >
               <Swiper
                 ref={mobileSwiperRef}
@@ -1082,7 +1112,7 @@ export default function Home() {
               viewport={{ once: true }}
               className="flex justify-center items-center"
             >
-                            <div className="w-full max-w-2xl bg-white/30 backdrop-blur-lg rounded-2xl px-4 py-2 border border-neutral-200 dark:border-neutral-700 shadow-lg">
+                            <div className="w-full max-w-2xl bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl px-4 py-2 border border-neutral-200 dark:border-neutral-700 shadow-lg">
                 <div className="text-center mb-4">
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-1 leading-tight">
                     Hear it from the people
@@ -1225,25 +1255,49 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
-       <section id="projects" className="min-h-screen flex items-center justify-center px-4 py-20 bg-neutral-50 dark:bg-neutral-900">
-         <div className="max-w-6xl mx-auto w-full">
-           <h2 className="text-3xl font-bold text-center mb-8">My Projects</h2>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             {/* Project cards would go here */}
-             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
-               <h3 className="text-xl font-semibold mb-2">Project 1</h3>
-               <p className="text-neutral-600 dark:text-neutral-400">Description of project 1</p>
-             </div>
-             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
-               <h3 className="text-xl font-semibold mb-2">Project 2</h3>
-               <p className="text-neutral-600 dark:text-neutral-400">Description of project 2</p>
-             </div>
-             <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700">
-               <h3 className="text-xl font-semibold mb-2">Project 3</h3>
-               <p className="text-neutral-600 dark:text-neutral-400">Description of project 3</p>
-             </div>
+      {/* Projects Section (Selected Projects) */}
+       <section id="projects" className="relative z-20 px-12 md:px-20 lg:px-32 py-20 ">
+         <div className="max-w-9xl mx-auto justify-center">
+           {/* Title centered */}
+           <div className="mb-8 text-center relative z-30 pointer-events-none">
+             <div className="text-s md:text-m tracking-[0.25em] uppercase text-muted-foreground dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">FEATURED CASE STUDIES</div>
+             <h2 className="mt-2 text-6xl md:text-7xl font-extrabold leading-none">
+               <span className="text-foreground drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">Curated</span>
+                <span className="animated-gradient font-black drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">&nbsp;Work</span>
+             </h2>
            </div>
+            {/* Left-aligned list under the centered title */}
+            <div className={`w-full flex ${selectedProject ? 'justify-start' : 'justify-center'} gap-6`}>
+              <div
+                id="projects-left-col"
+                className={`h-full transition-all duration-500 ease-out ${selectedProject ? 'w-[30%] ml-0 mr-auto' : 'w-[50%] mx-auto'}`}
+              >
+                <ProjectList onSelect={(slug) => {
+                  setSelectedProjectSlug(slug);
+                }} />
+              </div>
+              {selectedProject && (
+              <div id="projects-right-col" className="hidden md:block flex-1 rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 bg-white/30 dark:bg-black/25 backdrop-blur-md p-6 md:p-8 shadow-lg transition-all duration-500 ease-out h-[70vh] overflow-y-auto custom-scrollbar">
+                <div className="mb-4">
+                  <h3 className="text-sm uppercase tracking-wider text-muted-foreground">Project details</h3>
+                </div>
+                {/* React-rendered details */}
+                <AnimatePresence mode="wait">
+                  {selectedProject && (
+                    <motion.div
+                      key={selectedProject.slug}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.25 }}
+                    >
+                      <ProjectDetails project={selectedProject} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+              )}
+            </div>
          </div>
        </section>
 
