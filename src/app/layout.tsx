@@ -1,16 +1,34 @@
 import { Analytics } from "@vercel/analytics/react"
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins, Playfair_Display, JetBrains_Mono } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
-// Load Inter font for non-Apple devices
+// Load premium fonts
 const inter = Inter({ 
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const poppins = Poppins({ 
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
+
+const playfair = Playfair_Display({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-playfair",
+});
+
+const jetbrains = JetBrains_Mono({ 
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
@@ -79,6 +97,9 @@ export default function RootLayout({
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
           inter.variable,
+          poppins.variable,
+          playfair.variable,
+          jetbrains.variable,
         )}
       >
         <ThemeProvider

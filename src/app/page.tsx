@@ -17,6 +17,7 @@ import {
   Linkedin,
   Twitter,
   Instagram,
+  ExternalLink,
 } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
@@ -1013,12 +1014,12 @@ export default function Home() {
               viewport={{ once: true }}
               className="text-center space-y-6 bg-white dark:bg-black/20 rounded-2xl p-8 border border-gray-200 dark:border-neutral-700 shadow-lg"
             >
-              <h2 className="text-3xl font-bold text-gray-900">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
                 I'm Utkarsh, {" "}
                 <span className="animated-gradient">I build for the thrill..</span>
               </h2>
               
-              <div className="space-y-4 text-base leading-relaxed text-gray-600" style={{ fontSize: '18px' }}>
+              <div className="space-y-4 text-base leading-relaxed text-gray-600 dark:text-gray-300" style={{ fontSize: '18px' }}>
                 <p>
                   A curious human with a stubborn laptop. I write <strong>code that works</strong> (eventually), chase 
                   <strong> side projects</strong> like they owe me money, and treat debugging like a sport. I believe in 
@@ -1256,48 +1257,172 @@ export default function Home() {
       </section>
 
       {/* Projects Section (Selected Projects) */}
-       <section id="projects" className="relative z-20 px-12 md:px-20 lg:px-32 py-20 ">
+       <section id="projects" className="relative z-20 px-4 md:px-12 lg:px-20 xl:px-32 py-20">
          <div className="max-w-9xl mx-auto justify-center">
            {/* Title centered */}
            <div className="mb-8 text-center relative z-30 pointer-events-none">
              <div className="text-s md:text-m tracking-[0.25em] uppercase text-muted-foreground dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">FEATURED CASE STUDIES</div>
-             <h2 className="mt-2 text-6xl md:text-7xl font-extrabold leading-none">
+             <h2 className="mt-2 text-4xl md:text-6xl lg:text-7xl font-extrabold leading-none">
                <span className="text-foreground drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">Curated</span>
                 <span className="animated-gradient font-black drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">&nbsp;Work</span>
              </h2>
            </div>
-            {/* Left-aligned list under the centered title */}
-            <div className={`w-full flex ${selectedProject ? 'justify-start' : 'justify-center'} gap-6`}>
-              <div
-                id="projects-left-col"
-                className={`h-full transition-all duration-500 ease-out ${selectedProject ? 'w-[30%] ml-0 mr-auto' : 'w-[50%] mx-auto'}`}
-              >
-                <ProjectList onSelect={(slug) => {
-                  setSelectedProjectSlug(slug);
-                }} />
-              </div>
-              {selectedProject && (
-              <div id="projects-right-col" className="hidden md:block flex-1 rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 bg-white/30 dark:bg-black/25 backdrop-blur-md p-6 md:p-8 shadow-lg transition-all duration-500 ease-out h-[70vh] overflow-y-auto custom-scrollbar">
-                <div className="mb-4">
-                  <h3 className="text-sm uppercase tracking-wider text-muted-foreground">Project details</h3>
-                </div>
-                {/* React-rendered details */}
-                <AnimatePresence mode="wait">
-                  {selectedProject && (
-                    <motion.div
-                      key={selectedProject.slug}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <ProjectDetails project={selectedProject} />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              )}
-            </div>
+
+           {/* Desktop Layout */}
+           <div className="hidden md:flex w-full gap-6">
+             <div
+               id="projects-left-col"
+               className={`h-full transition-all duration-500 ease-out ${selectedProject ? 'w-[30%] ml-0 mr-auto' : 'w-[50%] mx-auto'}`}
+             >
+               <ProjectList onSelect={(slug) => {
+                 setSelectedProjectSlug(slug);
+               }} />
+             </div>
+             {selectedProject && (
+               <div className="flex-1 transition-all duration-500 ease-out">
+                 {/* Outer gradient border */}
+                 <div className="relative overflow-hidden rounded-3xl p-[6px] bg-gradient-to-br from-neutral-200/60 via-neutral-300/60 to-neutral-200/60 dark:from-neutral-700/60 dark:via-neutral-600/60 dark:to-neutral-700/60 shadow-[0_0_28px_rgba(0,0,0,0.25)]">
+                   {/* Inner neutral border to create double-border effect */}
+                   <div id="projects-right-col" className="rounded-[1.3rem] p-[4px] border-2 border-white/60 dark:border-white/30 bg-white/30 dark:bg-black/25 backdrop-blur-md">
+                     {/* Content container with its own subtle border */}
+                     <div className="rounded-2xl p-6 md:p-8 shadow-lg h-[78vh] overflow-y-auto scrollbar-hide">
+                       <div className="mb-4">
+                         <h3 className="text-sm uppercase tracking-wider text-muted-foreground">
+                           {selectedProject?.slug === 'blockchain-cloudguard' ? 'Research details' : 'Project details'}
+                         </h3>
+                       </div>
+                       {/* React-rendered details */}
+                       <AnimatePresence mode="wait">
+                         {selectedProject && (
+                           <motion.div
+                             key={selectedProject.slug}
+                             initial={{ opacity: 0, y: 10 }}
+                             animate={{ opacity: 1, y: 0 }}
+                             exit={{ opacity: 0, y: -10 }}
+                             transition={{ duration: 0.25 }}
+                           >
+                             <ProjectDetails project={selectedProject} />
+                           </motion.div>
+                         )}
+                       </AnimatePresence>
+                     </div>
+                   </div>
+                 </div>
+               </div>
+             )}
+           </div>
+
+           {/* Mobile Layout - Simple Cards */}
+           <div className="md:hidden space-y-6">
+             {PROJECTS.map((project) => (
+               <motion.div
+                 key={project.slug}
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 transition={{ duration: 0.5 }}
+                 className="bg-white/30 dark:bg-black/25 backdrop-blur-md rounded-2xl border border-white/60 dark:border-white/30 overflow-hidden shadow-lg"
+               >
+                 {/* Project Image */}
+                 <div className="relative h-48 overflow-hidden">
+                   <Image
+                     src={project.thumbnail}
+                     alt={project.title}
+                     fill
+                     className="object-cover"
+                   />
+                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                   <div className="absolute bottom-4 left-4 right-4">
+                     <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>
+                     <div className="flex items-center gap-2 text-white/80 text-sm">
+                       <span>{project.year}</span>
+                       <span>•</span>
+                       <span>{project.role}</span>
+                     </div>
+                   </div>
+                 </div>
+
+                                   {/* Project Content */}
+                  <div className="p-6">
+                    {/* Project Description */}
+                    <div className="mb-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                        {project.slug === 'awesome-react-native' && 
+                          "A meticulously curated collection of the best React Native tools, UI components, tutorials, libraries, and analytics — all in one sleek directory."
+                        }
+                        {project.slug === 'brutalyze-web' && 
+                          "A lightweight, privacy-focused SSH log analysis web app. Upload an auth.log and instantly detect failed logins, brute-force patterns, and IP geolocation."
+                        }
+                        {project.slug === 'silencium' && 
+                          "A real-time, end-to-end encrypted chat app with self-destructing rooms and encrypted image sharing. No accounts, no storage, privacy-first."
+                        }
+                        {project.slug === 'shadowkey' && 
+                          "A hacker-styled password security toolkit that checks password strength, estimates crack time, and generates strong passwords with customizable options."
+                        }
+                        {project.slug === 'blockchain-cloudguard' && 
+                          "A decentralized cloud security platform leveraging blockchain technology for enhanced data protection and access control."
+                        }
+                      </p>
+                    </div>
+
+                    {/* Tech Stack */}
+                    {project.techStack?.length && (
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {project.techStack.slice(0, 4).map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-3 py-1 bg-blue-600/10 text-blue-600 dark:text-blue-400 text-xs font-medium rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                        {project.techStack.length > 4 && (
+                          <span className="px-3 py-1 bg-gray-600/10 text-gray-600 dark:text-gray-400 text-xs font-medium rounded-full">
+                            +{project.techStack.length - 4} more
+                          </span>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Project Button */}
+                    <div className="flex gap-3">
+                     {project.liveUrl && (
+                       <a
+                         href={project.liveUrl}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-300"
+                       >
+                         <ExternalLink className="w-4 h-4" />
+                         Live
+                       </a>
+                     )}
+                     {project.sourceCode && (
+                       <a
+                         href={project.sourceCode}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-all duration-300"
+                       >
+                         <Github className="w-4 h-4" />
+                         GitHub
+                       </a>
+                     )}
+                     {project.slug === 'blockchain-cloudguard' && (
+                       <a
+                         href="https://www.jetir.org/papers/JETIR2307677.pdf"
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium rounded-lg transition-all duration-300"
+                       >
+                         <ExternalLink className="w-4 h-4" />
+                         Research
+                       </a>
+                     )}
+                   </div>
+                 </div>
+               </motion.div>
+             ))}
+           </div>
          </div>
        </section>
 

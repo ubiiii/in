@@ -146,10 +146,21 @@
     color: oklch(0.21 0.006 285.885);
     line-height: 1.8;
     word-wrap: break-word;
-    font-size: 1.25rem; /* ~20px */
+    font-size: 1.4rem; /* ~22px */
+    font-family: var(--font-poppins), sans-serif;
+    font-weight: 400;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 2rem;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
   }
   .dark .markdown-body {
     color: oklch(0.92 0.004 286.32);
+    background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   }
   .markdown-body h1,
   .markdown-body h2,
@@ -162,17 +173,98 @@
     margin-top: 1.25em;
     margin-bottom: 0.6em;
   }
-  .markdown-body h1 { font-size: 2.2rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
-  .markdown-body h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem; }
-  .markdown-body h3 { font-size: 1.5rem; }
-  .markdown-body h4 { font-size: 1.25rem; }
-  .markdown-body p { margin: 0.6em 0; }
-  .markdown-body a { color: #0969da; text-decoration: none; }
-  .dark .markdown-body a { color: #58a6ff; }
-  .markdown-body a:hover { text-decoration: underline; }
-  .markdown-body code { background: rgba(175,184,193,0.2); padding: 0.15rem 0.35rem; border-radius: 6px; font-size: 0.9em; }
-  .dark .markdown-body code { background: rgba(110,118,129,0.3); }
-  .markdown-body pre { position: relative; background: #0d1117; color: #c9d1d9; padding: 0.9rem 0.9rem; border-radius: 10px; overflow: auto; border: 1px solid rgba(240,246,252,0.1); }
+  .markdown-body h1 { 
+    font-size: 2.5rem; 
+    font-family: var(--font-playfair), serif;
+    font-weight: 600;
+    border-bottom: 2px solid linear-gradient(90deg, #3b82f6, #8b5cf6);
+    padding-bottom: 0.5rem; 
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.02em;
+  }
+  .markdown-body h2 { 
+    font-size: 2.1rem; 
+    font-family: var(--font-playfair), serif;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+    padding-bottom: 0.4rem; 
+    margin-bottom: 1.2rem;
+    color: #3b82f6;
+    letter-spacing: -0.01em;
+  }
+  .markdown-body h3 { 
+    font-size: 1.7rem; 
+    font-family: var(--font-poppins), sans-serif;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #6366f1;
+    letter-spacing: -0.005em;
+  }
+  .markdown-body h4 { 
+    font-size: 1.4rem; 
+    font-family: var(--font-poppins), sans-serif;
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+    color: #8b5cf6;
+    letter-spacing: -0.005em;
+  }
+  .markdown-body p { 
+    margin: 1rem 0; 
+    line-height: 1.9;
+    text-align: justify;
+    font-family: var(--font-poppins), sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .markdown-body a { 
+    color: #3b82f6; 
+    text-decoration: none; 
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: rgba(59, 130, 246, 0.1);
+  }
+  .dark .markdown-body a { 
+    color: #60a5fa; 
+    background: rgba(96, 165, 250, 0.1);
+  }
+  .markdown-body a:hover { 
+    text-decoration: none; 
+    background: rgba(59, 130, 246, 0.2);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  }
+  .markdown-body code { 
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)); 
+    padding: 0.3rem 0.6rem; 
+    border-radius: 8px; 
+    font-size: 0.95em; 
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    font-weight: 500;
+    font-family: var(--font-jetbrains), monospace;
+    letter-spacing: 0.02em;
+  }
+  .dark .markdown-body code { 
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2)); 
+    border: 1px solid rgba(59, 130, 246, 0.3);
+  }
+  .markdown-body pre { 
+    position: relative; 
+    background: linear-gradient(135deg, #1e293b, #334155); 
+    color: #e2e8f0; 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    overflow: auto; 
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    font-family: var(--font-jetbrains), monospace;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
   .dark .markdown-body pre { background: #0d1117; }
   .markdown-body pre code { background: transparent; }
   .markdown-body .code-copy-btn { position: absolute; top: 8px; right: 8px; font-size: 12px; padding: 6px 10px; border-radius: 6px; border: 1px solid rgba(240,246,252,0.1); background: rgba(240,246,252,0.06); color: #c9d1d9; cursor: pointer; }
@@ -180,7 +272,20 @@
   .markdown-body .code-copy-btn.copied { color: #7ee787; border-color: rgba(126,231,135,0.3); }
   .markdown-body blockquote { border-left: 0.25em solid var(--border); padding: 0 1em; color: oklch(0.552 0.016 285.938); }
   .dark .markdown-body blockquote { color: oklch(0.705 0.015 286.067); }
-  .markdown-body ul, .markdown-body ol { padding-left: 1.4em; margin: 0.5em 0; }
+  .markdown-body ul, .markdown-body ol { 
+    padding-left: 1.8em; 
+    margin: 1rem 0; 
+  }
+  .markdown-body li { 
+    margin: 0.8rem 0; 
+    padding: 0.5rem 0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  .markdown-body li:hover {
+    background: rgba(59, 130, 246, 0.05);
+    padding-left: 0.5rem;
+  }
   .markdown-body hr { border: 0; border-top: 1px solid var(--border); margin: 1.5em 0; }
   .markdown-body table { border-collapse: collapse; width: 100%; display: block; overflow: auto; }
   .markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 0.5rem 0.6rem; }
