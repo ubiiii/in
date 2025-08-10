@@ -10,6 +10,7 @@ export interface IProject {
   slug: string;
   liveUrl?: string;
   sourceCode?: string;
+  type: 'Live Project' | 'Project' | 'Publication' | 'Certification';
 }
 
 

@@ -6,6 +6,7 @@ export const PROJECTS: IProject[] = [
     slug: 'awesome-react-native',
     liveUrl: 'https://awesomereactnative.com/',
     year: 2022,
+    type: 'Live Project',
     description: `
       <div class="space-y-6">
         <p><strong>📱 Awesome React Native</strong> is a meticulously curated collection of the best React Native tools, UI components, tutorials, libraries, and analytics — all in one sleek directory. It's community‑powered and continuously updated, making it a go‑to resource for mobile developers.</p>
@@ -47,6 +48,7 @@ export const PROJECTS: IProject[] = [
     slug: 'brutalyze-web',
     sourceCode: 'https://github.com/ubiiii/brutalyze-web',
     year: 2025,
+    type: 'Project',
     description: `
       <div class="space-y-6">
         <p><strong>🛡️ Overview.</strong> Brutalyze Web is a lightweight, privacy‑focused SSH log analysis web app. Upload an <code>auth.log</code> and instantly detect 🔴 failed logins, 🚨 brute‑force patterns, 🌍 IP geolocation (country/region/city), and 📊 full classification: <em>Failed</em>, <em>Successful</em>, <em>Suspicious</em>, <em>Other</em>. All analysis is done <em>in‑memory</em>; nothing is stored on the server. One‑click secure report downloads.</p>
@@ -81,6 +83,7 @@ export const PROJECTS: IProject[] = [
     slug: 'silencium',
     sourceCode: 'https://github.com/ubiiii/Silencium',
     year: 2025,
+    type: 'Project',
     description: `
       <div class="space-y-6">
         <p><strong>🔒 Silencium – Secure Private Chat.</strong> A real‑time, end‑to‑end encrypted chat app with self‑destructing rooms and encrypted image sharing. No accounts, no storage, privacy‑first.</p>
@@ -121,6 +124,7 @@ export const PROJECTS: IProject[] = [
     slug: 'shadowkey',
     sourceCode: 'https://github.com/ubiiii/shadowkey',
     year: 2025,
+    type: 'Project',
     description: `
       <div class="space-y-6">
         <p><strong>🔐 ShadowKey.</strong> A hacker‑styled password security toolkit that checks password strength, estimates crack time, and generates strong passwords with customizable options.</p>
@@ -147,6 +151,7 @@ export const PROJECTS: IProject[] = [
     title: 'Blockchain CloudGuard',
     slug: 'blockchain-cloudguard',
     year: 2023,
+    type: 'Publication',
     description: `
       <div class="space-y-6">
         <h2 class="text-2xl font-bold mb-4">Blockchain Technology for Cloud Security and Data Integrity</h2>
@@ -161,6 +166,113 @@ export const PROJECTS: IProject[] = [
     techStack: ['React', 'Node.js', 'Solidity', 'Web3.js', 'Ethereum', 'IPFS'],
     thumbnail: '/projects/thumbnail/blockchain.jpg',
     longThumbnail: '/projects/thumbnail/blockchain.jpg',
+    images: [],
+  },
+  {
+    title: 'Python & Ethical Hacking',
+    slug: 'python-ethical-hacking',
+    year: 2024,
+    type: 'Certification',
+    description: `
+      <div class="space-y-6">
+        <h2 class="text-2xl font-bold mb-4">Python & Ethical Hacking Certification</h2>
+        <p><strong>🐍 Python & Ethical Hacking</strong> - Intensive hands-on training in offensive and defensive cybersecurity using Python and Kali Linux.</p>
+        
+        <p>Over the certification of this intensive training, I gained hands-on experience in both offensive and defensive cybersecurity using Python and Kali Linux. From building tools like MAC changers, ARP spoofers, and custom keyloggers, to analyzing real network traffic and executing payloads, this course pushed me to think like an attacker and build like an engineer. I wrote automation scripts, implemented packet sniffers, created backdoors, and explored multiple vectors such as DNS spoofing, HTTP injection, and web crawler-based reconnaissance all within ethical guidelines. Every tool and exploit I built was tested, refined, and run in isolated virtual environments, giving me real-world context for cybersecurity implementation.</p>
+        
+        <h4>💻 Built Custom Tools in Python</h4>
+        <ul>
+          <li>MAC address spoofing</li>
+          <li>ARP spoofing & table restoration</li>
+          <li>Packet sniffing & payload injection</li>
+          <li>Backdoor clients with file system access</li>
+          <li>Keylogger with email reporting</li>
+        </ul>
+        
+        <h4>🛡️ Performed In-Depth Network Analysis</h4>
+        <ul>
+          <li>Scapy for sending and analyzing raw packets</li>
+          <li>Intercepting DNS, ARP, and HTTP traffic</li>
+          <li>DNS and file interception via MITM attacks</li>
+        </ul>
+        
+        <h4>🕵️‍♂️ Worked with Kali Linux & Terminal Operations</h4>
+        <ul>
+          <li>Ethical exploitation with BeEF</li>
+          <li>Automating payload delivery</li>
+          <li>Reverse shells and persistence mechanisms</li>
+        </ul>
+        
+        <h4>🔍 Developed Python-Based Vulnerability Scanner</h4>
+        <ul>
+          <li>Hidden paths discovery</li>
+          <li>Subdomain enumeration</li>
+          <li>XSS vulnerabilities (forms + parameters)</li>
+        </ul>
+        
+        <h4>⚙️ Advanced Python Skills</h4>
+        <ul>
+          <li>Regex-based data parsing</li>
+          <li>Exception handling, OOP in Python</li>
+          <li>Python binary packaging for Windows/Linux/macOS</li>
+          <li>Anti-virus evasion techniques (theoretical and practical)</li>
+        </ul>
+        
+        <p>This certification has been instrumental in developing my understanding of cybersecurity principles and has enhanced my ability to build more secure applications and systems.</p>
+      </div>
+    `,
+    role: 'Certified Professional',
+    techStack: ['Python', 'Cybersecurity', 'Network Security', 'Penetration Testing', 'Ethical Hacking'],
+    thumbnail: '/projects/thumbnail/ethical hacking.jpg',
+    longThumbnail: '/projects/thumbnail/ethical hacking.jpg',
+    images: [],
+  },
+  {
+    title: 'Cyber Security',
+    slug: 'cyber-security',
+    year: 2024,
+    type: 'Certification',
+    description: `
+      <div class="space-y-6">
+        <h2 class="text-2xl font-bold mb-4">Cyber Security and Ethical Hacking Certification</h2>
+        <p><strong>🛡️ Cyber Security and Ethical Hacking</strong> - Comprehensive understanding of key cybersecurity concepts, tools, and attack strategies through practical labs and guided instruction.</p>
+        
+        <p>This certification in Cyber Security and Ethical Hacking provided me with a comprehensive understanding of key cybersecurity concepts, tools, and attack strategies. Through practical labs and guided instruction, I learned how to identify vulnerabilities, analyze threats, and ethically exploit system weaknesses in a controlled environment. Topics covered included network security, penetration testing, password attacks, malware behavior, and digital forensics. This course helped solidify my foundational knowledge and fueled my passion for building and breaking systems — ethically and responsibly.</p>
+        
+        <h4>🎯 Key Learning Outcomes</h4>
+        <ul>
+          <li><strong>Ethical Hacking Practices:</strong> Learned responsible disclosure and ethical exploitation techniques</li>
+          <li><strong>Hands-on Tool Experience:</strong> Gained practical experience with Wireshark, Nmap, and Kali Linux</li>
+          <li><strong>Security Concepts:</strong> Studied spoofing, packet analysis, password cracking, and system hardening</li>
+          <li><strong>Real-world Simulations:</strong> Applied attack simulations in isolated environments</li>
+          <li><strong>Security Principles:</strong> Strengthened understanding of CIA Triad (Confidentiality, Integrity, Availability)</li>
+        </ul>
+        
+        <h4>🛠️ Practical Skills Acquired</h4>
+        <ul>
+          <li>Network security analysis and vulnerability assessment</li>
+          <li>Penetration testing methodologies and techniques</li>
+          <li>Password attack strategies and countermeasures</li>
+          <li>Malware behavior analysis and detection</li>
+          <li>Digital forensics and incident response</li>
+          <li>System hardening and security configuration</li>
+        </ul>
+        
+        <h4>🔍 Tools and Technologies</h4>
+        <ul>
+          <li><strong>Wireshark:</strong> Network protocol analysis and packet inspection</li>
+          <li><strong>Nmap:</strong> Network discovery and security auditing</li>
+          <li><strong>Kali Linux:</strong> Penetration testing and security assessment</li>
+          <li><strong>Various Security Tools:</strong> For vulnerability scanning and exploitation</li>
+        </ul>
+        
+        <p>This certification has been fundamental in developing my cybersecurity expertise and has provided me with the knowledge and skills to approach security challenges with both technical proficiency and ethical responsibility.</p>
+      </div>
+    `,
+    role: 'Certified Professional',
+    techStack: ['Cybersecurity', 'Network Security', 'Penetration Testing', 'Ethical Hacking', 'Digital Forensics'],
+    thumbnail: '/projects/thumbnail/Cyber Security.jpg',
+    longThumbnail: '/projects/thumbnail/Cyber Security.jpg',
     images: [],
   },
 ];

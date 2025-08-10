@@ -29,6 +29,11 @@ function toIconName(name: string): string {
   if (key.includes('vercel')) return 'vercel';
   if (key.includes('cors')) return '';
   if (key.includes('libsodium') || key.includes('sodium')) return '';
+  if (key.includes('cybersecurity')) return '';
+  if (key.includes('network security')) return '';
+  if (key.includes('penetration testing')) return '';
+  if (key.includes('ethical hacking')) return '';
+  if (key.includes('digital forensics')) return '';
   return key.replace(/\s+/g, '');
 }
 
@@ -37,7 +42,12 @@ export default function TechIcon({ name, className }: TechIconProps) {
   const iconName = toIconName(name);
   const isLibsodium = lower.includes('libsodium') || lower.includes('sodium');
   const isCors = lower.includes('cors');
-  const [failed, setFailed] = useState(iconName === '' && !isLibsodium && !isCors);
+  const isCybersecurity = lower.includes('cybersecurity');
+  const isNetworkSecurity = lower.includes('network security');
+  const isPenetrationTesting = lower.includes('penetration testing');
+  const isEthicalHacking = lower.includes('ethical hacking');
+  const isDigitalForensics = lower.includes('digital forensics');
+  const [failed, setFailed] = useState(iconName === '' && !isLibsodium && !isCors && !isCybersecurity && !isNetworkSecurity && !isPenetrationTesting && !isEthicalHacking && !isDigitalForensics);
   
   // Use white icons for specific techs in dark mode
   const isNextJs = iconName === 'nextdotjs';
@@ -57,9 +67,15 @@ export default function TechIcon({ name, className }: TechIconProps) {
       ].join(' ')}
       title={name}
     >
-      {isLibsodium || isCors ? (
+      {isLibsodium || isCors || isCybersecurity || isNetworkSecurity || isPenetrationTesting || isEthicalHacking || isDigitalForensics ? (
         <span className="inline-flex items-center justify-center h-6 w-6 md:h-7 md:w-7 rounded-sm bg-white/30 dark:bg-white/10 ring-1 ring-black/5 dark:ring-white/10 text-lg leading-none">
-          {isLibsodium ? '🔐' : '🌐'}
+          {isLibsodium ? '🔐' : 
+           isCors ? '🌐' :
+           isCybersecurity ? '🔐' :
+           isNetworkSecurity ? '📡' :
+           isPenetrationTesting ? '🎯' :
+           isEthicalHacking ? '👨‍💻' :
+           isDigitalForensics ? '🔍' : '🔐'}
         </span>
       ) : !failed ? (
         <span className="relative inline-block h-6 w-6 md:h-7 md:w-7">

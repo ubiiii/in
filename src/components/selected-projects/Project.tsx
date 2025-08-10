@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import Image from 'next/image';
 import { useRef } from 'react';
+import ProjectTypeBadge from './ProjectTypeBadge';
 
 interface Props {
   index: number;
@@ -103,15 +104,18 @@ const Project = ({ index, project, selectedProject, onMouseEnter, onClick }: Pro
               </svg>
             </span>
           </h4>
-          <div className="mt-2 flex flex-wrap gap-3 text-muted-foreground text-xs font-medium">
-            {project.techStack.slice(0, 3).map((tech, idx, stackArr) => (
-              <div className="gap-3 flex items-center" key={tech}>
-                <span>{tech}</span>
-                {idx !== stackArr.length - 1 && (
-                  <span className="inline-block size-2 rounded-full bg-secondary"></span>
-                )}
-              </div>
-            ))}
+          <div className="mt-2 flex items-center gap-3">
+            <ProjectTypeBadge type={project.type} />
+            <div className="flex flex-wrap gap-3 text-muted-foreground text-xs font-medium">
+              {project.techStack.slice(0, 3).map((tech, idx, stackArr) => (
+                <div className="gap-3 flex items-center" key={tech}>
+                  <span>{tech}</span>
+                  {idx !== stackArr.length - 1 && (
+                    <span className="inline-block size-2 rounded-full bg-secondary"></span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

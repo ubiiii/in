@@ -1517,7 +1517,8 @@ export default function Home() {
                      <div className="rounded-2xl p-6 md:p-8 shadow-lg h-[78vh] overflow-y-auto scrollbar-hide">
                        <div className="mb-4">
                          <h3 className="text-sm uppercase tracking-wider text-muted-foreground">
-                           {selectedProject?.slug === 'blockchain-cloudguard' ? 'Research details' : 'Project details'}
+                           {selectedProject?.slug === 'blockchain-cloudguard' ? 'Research details' : 
+                            selectedProject?.slug === 'python-ethical-hacking' || selectedProject?.slug === 'cyber-security' ? 'Certification details' : 'Project details'}
                          </h3>
                        </div>
                        {/* React-rendered details */}
@@ -1589,6 +1590,12 @@ export default function Home() {
                         }
                         {project.slug === 'blockchain-cloudguard' && 
                           "A decentralized cloud security platform leveraging blockchain technology for enhanced data protection and access control."
+                        }
+                        {project.slug === 'python-ethical-hacking' && 
+                          "Comprehensive certification covering Python programming fundamentals and ethical hacking methodologies for cybersecurity professionals."
+                        }
+                        {project.slug === 'cyber-security' && 
+                          "Comprehensive understanding of key cybersecurity concepts, tools, and attack strategies through practical labs and guided instruction."
                         }
                       </p>
                     </div>

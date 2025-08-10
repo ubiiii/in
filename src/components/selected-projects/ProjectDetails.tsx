@@ -25,6 +25,10 @@ const ProjectDetails = ({ project }: Props) => {
         return { text: 'GitHub', link: 'https://github.com/ubiiii/ShadowKey', icon: Github };
       case 'blockchain-cloudguard':
         return { text: 'Visit Research', link: 'https://www.jetir.org/papers/JETIR2307677.pdf', icon: ExternalLink };
+      case 'python-ethical-hacking':
+        return { text: 'View Certificate', link: 'https://www.udemy.com/certificate/UC-de49e904-0333-4ddd-a3f0-9c137082119f/', icon: ExternalLink };
+      case 'cyber-security':
+        return { text: 'View Certificate', link: 'https://drive.google.com/file/d/1XtwYoKnv2LaKa_IMII-1MkBHEVC2Bihq/view', icon: ExternalLink };
       default:
         return null;
     }
