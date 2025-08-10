@@ -147,10 +147,12 @@ const GoogleSearchItem = ({ text, delay }: {
 }) => {
   const [displayText, setDisplayText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showBullet, setShowBullet] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsTyping(true);
+      setShowBullet(true);
       let currentIndex = 0;
       const interval = setInterval(() => {
         if (currentIndex <= text.length) {
@@ -169,8 +171,8 @@ const GoogleSearchItem = ({ text, delay }: {
   }, [text, delay]);
 
   return (
-    <div className="flex items-start gap-2">
-      <span className="text-blue-500 mt-1">•</span>
+    <div className="flex items-start gap-2 min-h-[2rem]">
+      <span className={`text-blue-500 mt-1 transition-opacity duration-300 ${showBullet ? 'opacity-100' : 'opacity-0'}`}>•</span>
       <span className="flex-1">
         {displayText}
         {isTyping && <span className="animate-pulse">|</span>}
@@ -446,10 +448,10 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" ref={aboutRef} className="relative min-h-screen flex items-center justify-center px-4 py-20 z-10">
-        <div className="max-w-7xl mx-auto w-full">
+        <div className="max-w-9xl mx-auto w-full h-full">
           {/* Section Heading */}
           <motion.div 
-            className="text-center mb-16"
+            className="text-center"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
@@ -497,247 +499,167 @@ export default function Home() {
             </motion.h1>
           </motion.div>
           
-          {/* Floating Containers */}
-          {/* Left Floating Container - Weekend To-Do List */}
-          <motion.div
-            className="hidden xl:block absolute left-8 top-8 bottom-8 z-20 flex items-center"
-            initial={{ opacity: 0, x: -100, y: 20 }}
-            whileInView={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <div className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
-              <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                My Weekend To-Do List
-              </h3>
-              <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300">
-                <TodoItem 
-                  text="9hr Sleep 😴" 
-                  delay={0} 
-                  shouldCheck={false} 
-                  checkDelay={14000}
-                />
-                <TodoItem 
-                  text="Buy Coffee and milk ☕" 
-                  delay={1000} 
-                  shouldCheck={true} 
-                  checkDelay={15000}
-                />
-                <TodoItem 
-                  text="Don't Drink Coffee 😬" 
-                  delay={2000} 
-                  shouldCheck={false} 
-                  checkDelay={16000}
-                />
-                <TodoItem 
-                  text="Laundry 🧺" 
-                  delay={3000} 
-                  shouldCheck={true} 
-                  checkDelay={17000}
-                />
-                <TodoItem 
-                  text="Check Mailbox 📬" 
-                  delay={4000} 
-                  shouldCheck={true} 
-                  checkDelay={18000}
-                />
-                <TodoItem 
-                  text="Make slides of a fake TED Talk 🌌" 
-                  delay={5000} 
-                  shouldCheck={true} 
-                  checkDelay={19000}
-                />
-                <TodoItem 
-                  text="Touch Grass 🍃" 
-                  delay={6000} 
-                  shouldCheck={true} 
-                  checkDelay={20000}
-                />
-                <TodoItem 
-                  text="Doodle on a sticky note ✏️" 
-                  delay={7000} 
-                  shouldCheck={true} 
-                  checkDelay={21000}
-                />
-                <TodoItem 
-                  text="Rearrange Furniture 🪑" 
-                  delay={8000} 
-                  shouldCheck={false} 
-                  checkDelay={22000}
-                />
-                <TodoItem 
-                  text="Watch a movie 🎬" 
-                  delay={9000} 
-                  shouldCheck={true} 
-                  checkDelay={23000}
-                />
-                <TodoItem 
-                  text="Scroll Regretfully for 4hrs📱" 
-                  delay={10000} 
-                  shouldCheck={false} 
-                  checkDelay={24000}
-                />
-                <TodoItem 
-                  text="Overthink Future 🧠" 
-                  delay={11000} 
-                  shouldCheck={true} 
-                  checkDelay={25000}
-                />
-                <TodoItem 
-                  text="Eat 3 meals 🥗" 
-                  delay={12000} 
-                  shouldCheck={false} 
-                  checkDelay={26000}
-                />
-                <TodoItem 
-                  text="Ignore Notifications 🔕" 
-                  delay={13000} 
-                  shouldCheck={true} 
-                  checkDelay={27000}
-                />
-              </div>
-              
-              {/* Weekend Productivity Recap */}
-              {showProductivityRecap && (
-                <div className="mt-8 pt-6 border-t border-gray-300 dark:border-gray-600">
-                <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
-                  Weekend Productivity Recap
-                </h4>
-                <div className="space-y-3 text-lg text-gray-700 dark:text-gray-300">
-                  <TypingRecapItem 
-                    text="Things I Did:" 
+
+          
+                                              {/* Desktop Layout - Four Columns (Wireframe Structure) */}
+                  <div className="hidden lg:grid lg:grid-cols-20 lg:gap-8 lg:items-stretch lg:min-h-[900px] -mt-20">
+                                                                      {/* Column 1 - My Weekend To-Do List */}
+                <div className="lg:col-span-4">
+                  <motion.div
+                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center w-full"
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                  Weekend To-Do List
+                </h3>
+                <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300">
+                  <TodoItem 
+                    text="9hr Sleep 😴" 
                     delay={0} 
-                    value="9" 
-                    valueColor="text-green-600" 
+                    shouldCheck={false} 
+                    checkDelay={14000}
                   />
-                  <TypingRecapItem 
-                    text="Things I Missed:" 
+                  <TodoItem 
+                    text="Buy Coffee and milk ☕" 
                     delay={1000} 
-                    value="5" 
-                    valueColor="text-orange-600" 
+                    shouldCheck={true} 
+                    checkDelay={15000}
                   />
-                  <TypingRecapItem 
-                    text="Things I Ignored on Purpose:" 
+                  <TodoItem 
+                    text="Don't Drink Coffee 😬" 
                     delay={2000} 
-                    value="4" 
-                    valueColor="text-red-600" 
+                    shouldCheck={false} 
+                    checkDelay={16000}
                   />
-                  <TypingRecapItem 
-                    text="Most Fun part of the Day:" 
+                  <TodoItem 
+                    text="Laundry 🧺" 
                     delay={3000} 
-                    value="Lying on the floor" 
-                    valueColor="text-blue-600" 
+                    shouldCheck={true} 
+                    checkDelay={17000}
                   />
-                  <TypingRecapItem 
-                    text="Productive Weekend?:" 
+                  <TodoItem 
+                    text="Check Mailbox 📬" 
                     delay={4000} 
-                    value="Yepp!" 
-                    valueColor="text-purple-600" 
+                    shouldCheck={true} 
+                    checkDelay={18000}
                   />
-                  <TypingRecapItem 
-                    text="Readiness for Monday?:" 
+                  <TodoItem 
+                    text="Make slides of a fake TED Talk" 
                     delay={5000} 
-                    value="none" 
-                    valueColor="text-gray-600" 
+                    shouldCheck={true} 
+                    checkDelay={19000}
+                  />
+                  <TodoItem 
+                    text="Touch Grass 🍃" 
+                    delay={6000} 
+                    shouldCheck={true} 
+                    checkDelay={20000}
+                  />
+                  <TodoItem 
+                    text="Doodle on a sticky note ✏️" 
+                    delay={7000} 
+                    shouldCheck={true} 
+                    checkDelay={21000}
+                  />
+                  <TodoItem 
+                    text="Rearrange Furniture 🪑" 
+                    delay={8000} 
+                    shouldCheck={false} 
+                    checkDelay={22000}
+                  />
+                  <TodoItem 
+                    text="Watch a movie 🎬" 
+                    delay={9000} 
+                    shouldCheck={true} 
+                    checkDelay={23000}
+                  />
+                  <TodoItem 
+                    text="Scroll Regretfully for 4hrs📱" 
+                    delay={10000} 
+                    shouldCheck={false} 
+                    checkDelay={24000}
+                  />
+                  <TodoItem 
+                    text="Overthink Future 🧠" 
+                    delay={11000} 
+                    shouldCheck={true} 
+                    checkDelay={25000}
+                  />
+                  <TodoItem 
+                    text="Eat 3 meals 🥗" 
+                    delay={12000} 
+                    shouldCheck={false} 
+                    checkDelay={26000}
+                  />
+                  <TodoItem 
+                    text="Ignore Notifications 🔕" 
+                    delay={13000} 
+                    shouldCheck={true} 
+                    checkDelay={27000}
                   />
                 </div>
-              </div>
-              )}
+                
+                {/* Weekend Productivity Recap */}
+                {showProductivityRecap && (
+                  <div className="mt-8 pt-6 border-t border-gray-300 dark:border-gray-600">
+                  <h4 className="text-xl font-bold text-gray-900 dark:text-white mb-4 text-center">
+                    Weekend Productivity Recap
+                  </h4>
+                  <div className="space-y-3 text-lg text-gray-700 dark:text-gray-300">
+                    <TypingRecapItem 
+                      text="Things I Did:" 
+                      delay={0} 
+                      value="9" 
+                      valueColor="text-green-600" 
+                    />
+                    <TypingRecapItem 
+                      text="Things I Missed:" 
+                      delay={1000} 
+                      value="5" 
+                      valueColor="text-orange-600" 
+                    />
+                    <TypingRecapItem 
+                      text="Things I Ignored on Purpose:" 
+                      delay={2000} 
+                      value="4" 
+                      valueColor="text-red-600" 
+                    />
+                    <TypingRecapItem 
+                      text="Most Fun part of the Day:" 
+                      delay={3000} 
+                      value="Lying on the floor" 
+                      valueColor="text-blue-600" 
+                    />
+                    <TypingRecapItem 
+                      text="Productive Weekend?:" 
+                      delay={4000} 
+                      value="Yepp!" 
+                      valueColor="text-purple-600" 
+                    />
+                    <TypingRecapItem 
+                      text="Readiness for Monday?:" 
+                      delay={5000} 
+                      value="none" 
+                      valueColor="text-gray-600" 
+                    />
+                  </div>
+                </div>
+                )}
+              </motion.div>
             </div>
-          </motion.div>
 
-          {/* Right Floating Container - Top Google Searches */}
-          <motion.div
-            className="hidden xl:block absolute right-8 top-8 bottom-8 z-20 flex items-center"
-            initial={{ opacity: 0, x: 100, y: -20 }}
-            whileInView={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            viewport={{ once: true }}
-          >
-            <div className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg w-[30rem] h-full flex flex-col justify-center">
-              <h3 className="text-4xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                Me to ChatGPT
-              </h3>
-              <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300">
-                <GoogleSearchItem 
-                  text="how to recover spoiled milk?" 
-                  delay={0} 
-                />
-                <GoogleSearchItem 
-                  text="how much coffee is too much?" 
-                  delay={1000} 
-                />
-                <GoogleSearchItem 
-                  text="how i suppose to know that I'm God?" 
-                  delay={2000} 
-                />
-                <GoogleSearchItem 
-                  text="how to undo git push?" 
-                  delay={3000} 
-                />
-                <GoogleSearchItem 
-                  text="does touching grass really reduce my stress?" 
-                  delay={4000} 
-                />
-                <GoogleSearchItem 
-                  text="is it impostor syndrome or am I actually bad?" 
-                  delay={5000} 
-                />
-                <GoogleSearchItem 
-                  text="can your laptop judge you?" 
-                  delay={6000} 
-                />
-                <GoogleSearchItem 
-                  text="am I the Ted or the side character in my own story?" 
-                  delay={7000} 
-                />
-                <GoogleSearchItem 
-                  text="how to stop judging people?" 
-                  delay={8000} 
-                />
-                <GoogleSearchItem 
-                  text="how to make friends?? and why should I make friends?" 
-                  delay={9000} 
-                />
-                <GoogleSearchItem 
-                  text="were Ross and Rachel really on a break?" 
-                  delay={10000} 
-                />
-                <GoogleSearchItem 
-                  text="how to manipulate roomate to leave the apartment?" 
-                  delay={11000} 
-                />
-                <GoogleSearchItem 
-                  text="how do I know if I'm dead or alive?" 
-                  delay={12000} 
-                />
-                <GoogleSearchItem 
-                  text="how to become Dwight Schrute?" 
-                  delay={13000} 
-                />
-                <GoogleSearchItem 
-                  text="why people consider bullying is bad thing?" 
-                  delay={14000} 
-                />
-                <GoogleSearchItem 
-                  text="what's that song that goes tu tu tu tu… max wes…" 
-                  delay={15000} 
-                />
-              </div>
-            </div>
-          </motion.div>
-          
-          {/* Desktop Layout - Two Columns */}
-          <div className="hidden lg:grid lg:grid-cols-2 lg:gap-12 lg:items-start">
-            {/* Left Column - Stacked Content */}
-            <div className="space-y-8">
+                                              {/* Column 2 - About Me Para + Testimonials Stacked */}
+              <div className="lg:col-span-6 space-y-6 lg:px-5 lg:pt-45 self-start">
               {/* About Me Section */}
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ once: true }}
-                className="space-y-6 bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg"
+                className="space-y-6 bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg"
               >
                 <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
                   I'm Utkarsh, {" "}
@@ -754,7 +676,7 @@ export default function Home() {
 
 
                   <p>
-                    This whole journey started when I deleted one file… and my dad’s new work computer  
+                    This whole journey started when I deleted one file… and my dad's new work computer  
                     <strong> rebooted... into darkness</strong>.
                   </p>
                 </div>
@@ -790,9 +712,9 @@ export default function Home() {
 
               {/* Testimonials Section */}
               <motion.div 
-                className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 flex-grow"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
                 viewport={{ once: true }}
               >
@@ -955,58 +877,286 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Right Column - Large Image Gallery */}
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              viewport={{ once: true }}
-              className="relative bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg h-full"
-            >
-              <Swiper
-                ref={desktopSwiperRef}
-                grabCursor={true}
-                centeredSlides={true}
-                slidesPerView="auto"
-                spaceBetween={20}
-                modules={[]}
-                className="w-full h-full"
-                onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
-                onTouchStart={handleUserInteraction}
-                onMouseEnter={handleUserInteraction}
-                loop={true}
-              >
-                {galleryItems.map((item, index) => item && (
-                  <SwiperSlide key={index} className="w-[80%] max-w-[500px] pb-2">
-                    <div className="flex flex-col items-center h-full">
-                      <div className="relative w-full h-[800px] rounded-2xl overflow-hidden transition-all duration-500 bg-gray-100 dark:bg-gray-800">
-                        <Image
-                          src={item.image}
-                          alt={item.caption}
-                          fill
-                          className="object-cover"
-                          quality={100}
-                          priority={index === 0}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
+                                              {/* Column 3 - Image Carousel */}
+                <div className="lg:col-span-6 lg:pt-45 self-start">
+                  <motion.div
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="relative bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg"
+                  >
+                    <Swiper
+                      ref={desktopSwiperRef}
+                      grabCursor={true}
+                      centeredSlides={true}
+                      slidesPerView="auto"
+                      spaceBetween={20}
+                      modules={[]}
+                      className="w-full"
+                      onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
+                      onTouchStart={handleUserInteraction}
+                      onMouseEnter={handleUserInteraction}
+                      loop={true}
+                    >
+                  {galleryItems.map((item, index) => item && (
+                    <SwiperSlide key={index} className="w-[80%] max-w-[400px] pb-2">
+                      <div className="flex flex-col items-center h-full">
+                        <div className="relative w-full h-[730px] rounded-2xl overflow-hidden transition-all duration-500 bg-gray-100 dark:bg-gray-800">
+                          <Image
+                            src={item.image}
+                            alt={item.caption}
+                            fill
+                            className="object-cover"
+                            quality={100}
+                            priority={index === 0}
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                        </div>
+                        <p className="mt-3 text-lg font-semibold text-gray-900 dark:text-white">
+                          {item.caption}
+                        </p>
                       </div>
-                      <p className="mt-3 text-lg font-semibold text-gray-900 dark:text-white">
-                        {item.caption}
-                      </p>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </motion.div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </motion.div>
 
+            </div>
 
+                                                              {/* Column 4 - Me to ChatGPT */}
+                <div className="lg:col-span-4">
+                  <motion.div
+                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[1000px] h-1000px w-full"
+                    initial={{ opacity: 0, x: 50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                  >
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                  Me to ChatGPT
+                </h3>
+                <div className="space-y-3 text-2xl text-gray-700 dark:text-gray-300 flex-1 flex flex-col justify-center">
+                  <GoogleSearchItem 
+                    text="how to recover spoiled milk?" 
+                    delay={0} 
+                  />
+                  <GoogleSearchItem 
+                    text="how much coffee is too much?" 
+                    delay={1000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how i suppose to know that I'm God?" 
+                    delay={2000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how to undo git push?" 
+                    delay={3000} 
+                  />
+                  <GoogleSearchItem 
+                    text="does touching grass really reduce my stress?" 
+                    delay={4000} 
+                  />
+                  <GoogleSearchItem 
+                    text="is it impostor syndrome or am I actually bad?" 
+                    delay={5000} 
+                  />
+                  <GoogleSearchItem 
+                    text="can your laptop judge you?" 
+                    delay={6000} 
+                  />
+                  <GoogleSearchItem 
+                    text="am I the Ted or the side character in my own story?" 
+                    delay={7000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how to stop judging people?" 
+                    delay={8000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how to make friends?? and why should I make friends?" 
+                    delay={9000} 
+                  />
+                  <GoogleSearchItem 
+                    text="were Ross and Rachel really on a break?" 
+                    delay={10000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how to manipulate roomate to leave the apartment?" 
+                    delay={11000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how do I know if I'm dead or alive?" 
+                    delay={12000} 
+                  />
+                  <GoogleSearchItem 
+                    text="how to become Dwight Schrute?" 
+                    delay={13000} 
+                  />
+                  <GoogleSearchItem 
+                    text="why people consider bullying is bad thing?" 
+                    delay={14000} 
+                  />
+                  <GoogleSearchItem 
+                    text="what's that song that goes tu tu tu tu… max wes…" 
+                    delay={15000} 
+                  />
+                </div>
+              </motion.div>
+            </div>
           </div>
 
 
 
           {/* Mobile Layout - Stacked */}
           <div className="lg:hidden space-y-8">
-            {/* Text Content */}
+            {/* Weekend To-Do List */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full"
+            >
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                My Weekend To-Do List
+              </h3>
+              <div className="space-y-3 text-lg text-gray-700 dark:text-gray-300">
+                <TodoItem 
+                  text="9hr Sleep 😴" 
+                  delay={0} 
+                  shouldCheck={false} 
+                  checkDelay={14000}
+                />
+                <TodoItem 
+                  text="Buy Coffee and milk ☕" 
+                  delay={1000} 
+                  shouldCheck={true} 
+                  checkDelay={15000}
+                />
+                <TodoItem 
+                  text="Don't Drink Coffee 😬" 
+                  delay={2000} 
+                  shouldCheck={false} 
+                  checkDelay={16000}
+                />
+                <TodoItem 
+                  text="Laundry 🧺" 
+                  delay={3000} 
+                  shouldCheck={true} 
+                  checkDelay={17000}
+                />
+                <TodoItem 
+                  text="Check Mailbox 📬" 
+                  delay={4000} 
+                  shouldCheck={true} 
+                  checkDelay={18000}
+                />
+                <TodoItem 
+                  text="Make slides of a fake TED Talk 🌌" 
+                  delay={5000} 
+                  shouldCheck={true} 
+                  checkDelay={19000}
+                />
+                <TodoItem 
+                  text="Touch Grass 🍃" 
+                  delay={6000} 
+                  shouldCheck={true} 
+                  checkDelay={20000}
+                />
+                <TodoItem 
+                  text="Doodle on a sticky note ✏️" 
+                  delay={7000} 
+                  shouldCheck={true} 
+                  checkDelay={21000}
+                />
+                <TodoItem 
+                  text="Rearrange Furniture 🪑" 
+                  delay={8000} 
+                  shouldCheck={false} 
+                  checkDelay={22000}
+                />
+                <TodoItem 
+                  text="Watch a movie 🎬" 
+                  delay={9000} 
+                  shouldCheck={true} 
+                  checkDelay={23000}
+                />
+                <TodoItem 
+                  text="Scroll Regretfully for 4hrs📱" 
+                  delay={10000} 
+                  shouldCheck={false} 
+                  checkDelay={24000}
+                />
+                <TodoItem 
+                  text="Overthink Future 🧠" 
+                  delay={11000} 
+                  shouldCheck={true} 
+                  checkDelay={25000}
+                />
+                <TodoItem 
+                  text="Eat 3 meals 🥗" 
+                  delay={12000} 
+                  shouldCheck={false} 
+                  checkDelay={26000}
+                />
+                <TodoItem 
+                  text="Ignore Notifications 🔕" 
+                  delay={13000} 
+                  shouldCheck={true} 
+                  checkDelay={27000}
+                />
+              </div>
+              
+              {/* Weekend Productivity Recap */}
+              {showProductivityRecap && (
+                <div className="mt-6 pt-4 border-t border-gray-300 dark:border-gray-600">
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3 text-center">
+                  Weekend Productivity Recap
+                </h4>
+                <div className="space-y-2 text-base text-gray-700 dark:text-gray-300">
+                  <TypingRecapItem 
+                    text="Things I Did:" 
+                    delay={0} 
+                    value="9" 
+                    valueColor="text-green-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Things I Missed:" 
+                    delay={1000} 
+                    value="5" 
+                    valueColor="text-orange-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Things I Ignored on Purpose:" 
+                    delay={2000} 
+                    value="4" 
+                    valueColor="text-red-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Fun part of the Day:" 
+                    delay={3000} 
+                    value="Lying on the floor" 
+                    valueColor="text-blue-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Productive Weekend?:" 
+                    delay={4000} 
+                    value="Yepp!" 
+                    valueColor="text-purple-600" 
+                  />
+                  <TypingRecapItem 
+                    text="Readiness for Monday?:" 
+                    delay={5000} 
+                    value="none" 
+                    valueColor="text-gray-600" 
+                  />
+                </div>
+              </div>
+              )}
+            </motion.div>
+
+            {/* About Me Section */}
             <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -1103,6 +1253,85 @@ export default function Home() {
                   </SwiperSlide>
                 ))}
               </Swiper>
+            </motion.div>
+
+            {/* Me to ChatGPT */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true }}
+              className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full"
+            >
+              <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                Me to ChatGPT
+              </h3>
+              <div className="space-y-3 text-lg text-gray-700 dark:text-gray-300">
+                <GoogleSearchItem 
+                  text="how to recover spoiled milk?" 
+                  delay={0} 
+                />
+                <GoogleSearchItem 
+                  text="how much coffee is too much?" 
+                  delay={1000} 
+                />
+                <GoogleSearchItem 
+                  text="how i suppose to know that I'm God?" 
+                  delay={2000} 
+                />
+                <GoogleSearchItem 
+                  text="how to undo git push?" 
+                  delay={3000} 
+                />
+                <GoogleSearchItem 
+                  text="does touching grass really reduce my stress?" 
+                  delay={4000} 
+                />
+                <GoogleSearchItem 
+                  text="is it impostor syndrome or am I actually bad?" 
+                  delay={5000} 
+                />
+                <GoogleSearchItem 
+                  text="can your laptop judge you?" 
+                  delay={6000} 
+                />
+                <GoogleSearchItem 
+                  text="am I the Ted or the side character in my own story?" 
+                  delay={7000} 
+                />
+                <GoogleSearchItem 
+                  text="how to stop judging people?" 
+                  delay={8000} 
+                />
+                <GoogleSearchItem 
+                  text="how to make friends?? and why should I make friends?" 
+                  delay={9000} 
+                />
+                <GoogleSearchItem 
+                  text="were Ross and Rachel really on a break?" 
+                  delay={10000} 
+                />
+                <GoogleSearchItem 
+                  text="how to manipulate roomate to leave the apartment?" 
+                  delay={11000} 
+                />
+                <GoogleSearchItem 
+                  text="how do I know if I'm dead or alive?" 
+                  delay={12000} 
+                />
+                <GoogleSearchItem 
+                  text="how to become Dwight Schrute?" 
+                  delay={13000} 
+                />
+                <GoogleSearchItem 
+                  text="why people consider bullying is bad thing?" 
+                  delay={14000} 
+                />
+                <GoogleSearchItem 
+                  text="what's that song that goes tu tu tu tu… max wes…" 
+                  delay={15000} 
+                />
+              </div>
             </motion.div>
 
             {/* Mobile Carousel Section */}
