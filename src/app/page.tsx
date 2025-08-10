@@ -228,7 +228,7 @@ export default function Home() {
   
   // About gallery data
   const galleryItems = [
-    { image: '/I\'m Utkarsh.jpg', caption: 'I\'m Utkarsh' },
+    { image: '/I\'m Utkarsh.jpg', caption: 'I\'m Utkarsh B Lubal' },
     { image: '/I Build.jpg', caption: 'I Build' },
     { image: '/I Lift.jpg', caption: 'I Lift' },
     { image: '/I Explore.jpg', caption: 'I Explore' },
@@ -413,13 +413,13 @@ export default function Home() {
               </div>
             </Button>
             <Button
-              onClick={() => scrollToSection('skills')}
+              onClick={() => window.open('https://github.com/ubiiii', '_blank')}
               variant="outline"
               className="border-border hover:bg-border/30 aspect-square w-full cursor-pointer rounded-2xl border bg-white/30 dark:bg-black/30 py-8 shadow-none backdrop-blur-lg active:scale-95 md:py-10 lg:py-12"
             >
               <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <Layers size={44} strokeWidth={2} color="#856ED9" />
-                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Skills</span>
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Github</span>
               </div>
             </Button>
             <Button
@@ -429,7 +429,7 @@ export default function Home() {
             >
               <div className="flex h-full flex-col items-center justify-center gap-2 text-gray-700 dark:text-gray-300">
                 <PartyPopper size={44} strokeWidth={2} color="#B95F9D" />
-                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Hobbies</span>
+                <span className="text-xs font-medium sm:text-sm md:text-base lg:text-lg">Journey</span>
               </div>
             </Button>
             <Button
@@ -506,7 +506,7 @@ export default function Home() {
                                                                       {/* Column 1 - My Weekend To-Do List */}
                 <div className="lg:col-span-4">
                   <motion.div
-                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center w-full md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center w-full hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -659,7 +659,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
                 viewport={{ once: true }}
-                className="space-y-6 bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+                className="space-y-6 bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
               >
                 <h2 className="text-4xl font-bold text-gray-900 dark:text-white">
                   I'm Utkarsh, {" "}
@@ -712,7 +712,7 @@ export default function Home() {
 
               {/* Testimonials Section */}
               <motion.div 
-                className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+                className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl border border-neutral-200 dark:border-neutral-700 shadow-2xl p-6 hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
@@ -884,7 +884,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     viewport={{ once: true }}
-                    className="relative bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+                    className="relative bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
                   >
                     <Swiper
                       ref={desktopSwiperRef}
@@ -927,7 +927,7 @@ export default function Home() {
                                                               {/* Column 4 - Me to ChatGPT */}
                 <div className="lg:col-span-4">
                   <motion.div
-                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[1000px] h-1000px w-full md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+                    className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[1000px] h-1000px w-full hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
                     initial={{ opacity: 0, x: 50 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -1016,7 +1016,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full"
+              className="hidden bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full"
             >
               <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 My Weekend To-Do List
@@ -1217,7 +1217,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="flex justify-center bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+              className="flex justify-center bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700 shadow-lg hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
             >
               <Swiper
                 ref={mobileSwiperRef}
@@ -1261,7 +1261,7 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full md:group-hover/all-containers:blur-sm md:group-hover/all-containers:opacity-50 md:hover:!blur-none md:hover:!opacity-100 transition-all duration-300"
+              className="hidden bg-white/30 dark:bg-black/20 backdrop-blur-lg rounded-2xl p-6 border border-neutral-200 dark:border-neutral-700 shadow-lg flex flex-col justify-center lg:min-h-[900px] w-full hover:shadow-2xl hover:shadow-blue-500/20 dark:hover:shadow-blue-400/20 hover:scale-[1.02] transition-all duration-300"
             >
               <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 Me to ChatGPT
