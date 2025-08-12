@@ -419,6 +419,50 @@ pre {
   font-weight: bold;
 }
 
+/* Timeline Card Styles */
+.timeline-card {
+  background: transparent;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  transition: all 0.3s ease;
+}
+
+.timeline-card:hover {
+  transform: translateY(-5px);
+  box-shadow: none;
+  border: none;
+}
+
+.dark .timeline-card {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.dark .timeline-card:hover {
+  box-shadow: none;
+  border: none;
+}
+
+/* Custom pixelated font effect for JOURNEY title */
+.pixelated-text {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-shadow: 
+    2px 0 0 #3b82f6,
+    4px 0 0 #3b82f6,
+    6px 0 0 #3b82f6;
+}
+
+.dark .pixelated-text {
+  text-shadow: 
+    2px 0 0 #60a5fa,
+    4px 0 0 #60a5fa,
+    6px 0 0 #60a5fa;
+}
+
 /* Apply animated gradient to project titles only on list hover */
 .group:hover .project-title-gradient {
   background: linear-gradient(90deg, #ff00cc, #3333ff);

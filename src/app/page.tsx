@@ -4,7 +4,7 @@ import FluidCursor from '@/components/FluidCursor';
 import { Button } from '@/components/ui/button';
 import { GithubButton } from '@/components/ui/github-button';
 import TypingEffect from '@/components/typing-effect';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowRight,
   BriefcaseBusiness,
@@ -29,6 +29,14 @@ import 'swiper/css/pagination';
 import ProjectList from '@/components/selected-projects/ProjectList';
 import ProjectDetails from '@/components/selected-projects/ProjectDetails';
 import { PROJECTS } from '@/components/selected-projects/data';
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Toaster } from "@/components/ui/sonner";
+import { selectedProjects } from "@/components/selected-projects/data";
+import { ProjectModal } from "@/components/selected-projects/ProjectModal";
+import { useFluidCursor } from "@/hooks/use-FluidCursor";
 
 // Typing Effect Component for Recap
 const TypingRecapItem = ({ text, delay, value, valueColor }: { 
@@ -75,6 +83,316 @@ const TypingRecapItem = ({ text, delay, value, valueColor }: {
         </span>
       )}
     </div>
+  );
+};
+
+// Confetti Component
+const Confetti = ({ isActive }: { isActive: boolean }) => {
+  const confettiColors = [
+    "#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57", 
+    "#ff9ff3", "#54a0ff", "#5f27cd", "#00d2d3", "#ff9f43"
+  ];
+
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {isActive && [...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-2 h-2 rounded-sm"
+          style={{
+            backgroundColor: confettiColors[i % confettiColors.length],
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          initial={{ 
+            opacity: 0, 
+            scale: 0,
+            rotate: 0,
+            y: 0,
+            x: 0
+          }}
+          animate={{ 
+            opacity: [0, 1, 1, 0],
+            scale: [0, 1, 1, 0],
+            rotate: [0, 360, 720],
+            y: [0, -100, -200],
+            x: [0, Math.random() * 100 - 50, Math.random() * 200 - 100]
+          }}
+          transition={{
+            duration: 2,
+            delay: Math.random() * 0.5,
+            ease: "easeOut",
+            repeat: Infinity,
+            repeatDelay: 0.5
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+// Emoji Floating Components for each card
+const FloatingEmojis2008 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🖥️", "💻", "❌", "⚠️", "😬", "🤦‍♂️", "💥", "🔴", "📵"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2010 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🎮", "🎧", "🎶", "🕹️", "😊"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2012 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🤔", "💻", "🔍", "💡", "🧠", "✨"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2015 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🔧", "🛠️", "🖥️", "💡", "🧰"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2017 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🖥️", "🔧", "🏘️", "🤝", "🔩"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2018 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🎓", "🏫", "💻", "🔢", "🌟"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2019 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🤖", "✨", "🧑‍💻", "🚀"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2021 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["💻", "💰", "🔗", "🤹‍♂️", "🔍"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2022 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🎓", "💼", "🌍", "🏢", "🚀"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2023 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["📄", "🔗", "📚", "🌟", "📝"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+const FloatingEmojis2024 = ({ isActive }: { isActive: boolean }) => {
+  const emojis = ["🏆", "📈", "💼", "🎯", "🎓"];
+  return <FloatingEmojisBase isActive={isActive} emojis={emojis} />;
+};
+
+// Base component for floating emojis
+const FloatingEmojisBase = ({ isActive, emojis }: { isActive: boolean; emojis: string[] }) => {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {isActive && [...Array(15)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute text-2xl"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          initial={{ 
+            opacity: 0, 
+            scale: 0,
+            rotate: 0,
+            y: 0,
+            x: 0
+          }}
+          animate={{ 
+            opacity: [0, 1, 1, 0],
+            scale: [0, 1, 1, 0],
+            rotate: [0, 180, 360],
+            y: [0, -80, -160],
+            x: [0, Math.random() * 60 - 30, Math.random() * 120 - 60]
+          }}
+          transition={{
+            duration: 3,
+            delay: Math.random() * 0.8,
+            ease: "easeOut",
+            repeat: Infinity,
+            repeatDelay: 0.8
+          }}
+        >
+          {emojis[i % emojis.length]}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
+
+
+// Timeline Card Component with Entry/Exit Animations (Mobile)
+const TimelineCard = ({ 
+  year, 
+  image, 
+  alt, 
+  description, 
+  position = 'left', // 'left', 'center', 'right'
+  delay = 0 
+}: { 
+  year: string; 
+  image: string; 
+  alt: string;
+  description: string; 
+  position?: 'left' | 'center' | 'right';
+  delay?: number;
+}) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Transform scroll progress to opacity for exit animation
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  
+  // Define animations based on position
+  const getAnimations = () => {
+    switch (position) {
+      case 'left':
+        return {
+          initial: { opacity: 0, x: -100 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: -50 }
+        };
+      case 'right':
+        return {
+          initial: { opacity: 0, x: 100 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: 50 }
+        };
+      case 'center':
+      default:
+        return {
+          initial: { opacity: 0, scale: 0.8 },
+          animate: { opacity: 1, scale: 1 },
+          exit: { opacity: 0, scale: 0.9 }
+        };
+    }
+  };
+
+  const animations = getAnimations();
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={animations.initial}
+      animate={isInView ? animations.animate : animations.initial}
+      exit={animations.exit}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay,
+        ease: "easeOut" 
+      }}
+      style={{ opacity }}
+      className="w-full"
+    >
+      <div className="timeline-card rounded-2xl w-full flex flex-col gap-6 p-6 relative z-50">
+        <h3 className="text-4xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">
+          {year}
+        </h3>
+        <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+          <div className="mb-4">
+            <Image
+              src={image}
+              alt={alt}
+              width={600}
+              height={450}
+              className="w-full rounded-lg object-cover"
+            />
+          </div>
+          <p className="text-lg text-neutral-900 dark:text-white leading-relaxed m-0">
+            {description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Desktop Timeline Card Component with Entry/Exit Animations
+const DesktopTimelineCard = ({ 
+  year, 
+  image, 
+  alt, 
+  description, 
+  position = 'left', // 'left', 'center', 'right'
+  delay = 0,
+  className = "",
+  children
+}: { 
+  year: string; 
+  image: string; 
+  alt: string; 
+  description: string; 
+  position?: 'left' | 'center' | 'right';
+  delay?: number;
+  className?: string;
+  children?: React.ReactNode;
+}) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  // Transform scroll progress to opacity for exit animation
+  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  
+  // Define animations based on position
+  const getAnimations = () => {
+    switch (position) {
+      case 'left':
+        return {
+          initial: { opacity: 0, x: -100 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: -50 }
+        };
+      case 'right':
+        return {
+          initial: { opacity: 0, x: 100 },
+          animate: { opacity: 1, x: 0 },
+          exit: { opacity: 0, x: 50 }
+        };
+      case 'center':
+      default:
+        return {
+          initial: { opacity: 0, scale: 0.8 },
+          animate: { opacity: 1, scale: 1 },
+          exit: { opacity: 0, scale: 0.9 }
+        };
+    }
+  };
+
+  const animations = getAnimations();
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={animations.initial}
+      animate={isInView ? animations.animate : animations.initial}
+      exit={animations.exit}
+      transition={{ 
+        duration: 0.8, 
+        delay: delay,
+        ease: "easeOut" 
+      }}
+      style={{ opacity }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 };
 
@@ -1662,49 +1980,693 @@ export default function Home() {
          </div>
        </section>
 
-             {/* Skills Section */}
-       <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-20">
-         <div className="max-w-4xl mx-auto w-full">
-           <h2 className="text-3xl font-bold text-center mb-8">Skills</h2>
-           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-               <div>
-                 <h3 className="text-xl font-semibold mb-4">Technical Skills</h3>
-                 <ul className="space-y-2">
-                   <li>• JavaScript/TypeScript</li>
-                   <li>• React/Next.js</li>
-                   <li>• Node.js</li>
-                   <li>• Python</li>
-                 </ul>
+
+
+             {/* My Journey Section - Desktop Only */}
+       <section id="hobbies" className="relative py-16 hidden lg:block">
+         {/* Title centered */}
+         <div className="mb-8 text-center relative z-30 pointer-events-none">
+           <div className="text-s md:text-m tracking-[0.25em] uppercase text-muted-foreground dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">LIFE TIMELINE</div>
+           <h2 className="mt-2 text-4xl md:text-6xl lg:text-7xl font-extrabold leading-none">
+             <span className="text-foreground drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">My</span>
+              <span className="animated-gradient font-black drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">&nbsp;Journey</span>
+           </h2>
+         </div>
+
+         {/* Grid of Cards */}
+         <div className="w-full md:w-4/5 max-w-8xl mx-auto px-0 relative z-40">
+           {/* First Row - 3 cards */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 -gap-8 mb-8 pl-8">
+             {/* 2000 Card */}
+             <DesktopTimelineCard
+               year="2000"
+               image="/2000.png"
+               alt="Born on a warm summer evening in India"
+               description="Born on a warm summer evening in India, little did the world know, a future tech geek had arrived!"
+               position="left"
+               delay={0}
+               className="group flex justify-end"
+             >
+               {(() => {
+                 const [isConfettiActive, setIsConfettiActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl w-full flex flex-col gap-6 max-w-3xl h-[40rem] p-8 relative z-50"
+                     onMouseEnter={() => setIsConfettiActive(true)}
+                     onMouseLeave={() => setIsConfettiActive(false)}
+                   >
+                     <Confetti isActive={isConfettiActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2000</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2000.png"
+                           alt="Born on a warm summer evening in India"
+                           width={600}
+                           height={450}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Born on a warm summer evening in India, little did the world know, a future tech geek had arrived!
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2008 Card */}
+             <DesktopTimelineCard
+               year="2008"
+               image="/2008.png"
+               alt="Met a computer for the first time"
+               description="Met a computer for the first time. Accidentally deleted a random file on my dad's work PC... and yes, the computer never woke up again. I also got a legendary scolding!"
+               position="right"
+               delay={0.1}
+               className="group flex justify-start"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl w-full flex flex-col gap-6 max-w-4xl pt-32 pb-8 px-8 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2008 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2008</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2008.png"
+                           alt="Met a computer for the first time"
+                           width={400}
+                           height={300}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Met a computer for the first time. Accidentally deleted a random file on my dad's work PC... and yes, the computer never woke up again. I also got a legendary scolding!
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2010 Card */}
+             <DesktopTimelineCard
+               year="2010"
+               image="/2010.png"
+               alt="Discovered video games and music"
+               description="Discovered video games and music —my two favorite ways to procrastinate productively."
+               position="center"
+               delay={0.2}
+               className="group flex justify-center"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl w-full flex flex-col gap-6 max-w-md h-96 pt-0 pr-2 pb-8 pl-4 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2010 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2010</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2010.png"
+                           alt="Discovered video games and music"
+                           width={400}
+                           height={300}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Discovered video games and music —my two favorite ways to procrastinate productively.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+           </div>
+
+           {/* Second Row - 3 cards */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 mb-12">
+             {/* 2012 Card */}
+             <DesktopTimelineCard
+               year="2012"
+               image="/2012.png"
+               alt="Got curious about how those mysterious programs worked"
+               description="Got curious about how those mysterious programs worked and started poking around the computer like a tiny hacker."
+               position="left"
+               delay={0.3}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-0 pr-8 pb-8 pl-8 w-full max-w-xl h-[35rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2012 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2012</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2012.png"
+                           alt="Got curious about how those mysterious programs worked"
+                           width={600}
+                           height={450}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Got curious about how those mysterious programs worked and started poking around the computer like a tiny hacker.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2015 Card */}
+             <DesktopTimelineCard
+               year="2015"
+               image="/2015.png"
+               alt="Became a regular at the local repair shop"
+               description="Became a regular at the local repair shop, fixing computers and pretending I was a tech wizard."
+               position="center"
+               delay={0.4}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-20 pr-8 pb-8 pl-4 w-full max-w-full h-[35rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2015 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2015</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2015.png"
+                           alt="Became a regular at the local repair shop"
+                           width={1400}
+                           height={1050}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Became a regular at the local repair shop, fixing computers and pretending I was a tech wizard.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2017 Card */}
+             <DesktopTimelineCard
+               year="2017"
+               image="/2017.png"
+               alt="Started repairing computers for neighbors and friends"
+               description="Started repairing computers for neighbors and friends, building trust and skills in the local community."
+               position="right"
+               delay={0.5}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-16 pr-8 pb-8 pl-8 w-full max-w-xl h-[35rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2017 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2017</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2017.png"
+                           alt="Started repairing computers for neighbors and friends"
+                           width={600}
+                           height={450}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Started repairing computers for neighbors and friends, building trust and skills in the local community.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+           </div>
+
+           {/* Third Row - 3 cards */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 -mb-20 -mx-8">
+             {/* 2019 Card */}
+             <DesktopTimelineCard
+               year="2019"
+               image="/2019.png"
+               alt="Built my first AI assistant"
+               description="Built my first AI assistant —felt like Iron Man."
+               position="left"
+               delay={0.6}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-95 pr-8 pb-8 pl-8 w-full max-w-[3000px] h-[60rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2019 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2019</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2019.png"
+                           alt="Built my first AI assistant"
+                           width={9600}
+                           height={7200}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Built my first AI assistant —felt like Iron Man.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2018 Card */}
+             <DesktopTimelineCard
+               year="2018"
+               image="/2018.png"
+               alt="To explore the binary world further"
+               description="To explore the binary world further, enrolled in Computer Science and Engineering."
+               position="center"
+               delay={0.7}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-32 pr-8 pb-0 pl-8 w-full max-w-full h-[20rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2018 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2018</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2018.png"
+                           alt="To explore the binary world further"
+                           width={4000}
+                           height={3000}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         To explore the binary world further, enrolled in Computer Science and Engineering.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2021 Card */}
+             <DesktopTimelineCard
+               year="2021"
+               image="/2021.png"
+               alt="Juggled freelance projects while diving into blockchain research"
+               description="Juggled freelance projects while diving into blockchain research —because why not?"
+               position="right"
+               delay={0.8}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-95 pr-8 pb-8 pl-8 w-full max-w-4xl h-[30rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2021 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2021</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2021.png"
+                           alt="Juggled freelance projects while diving into blockchain research"
+                           width={1800}
+                           height={1350}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Juggled freelance projects while diving into blockchain research —because why not?
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+           </div>
+
+           {/* Fourth Row - 3 cards */}
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 -mt-20 -mx-8">
+             {/* 2023 Card */}
+             <DesktopTimelineCard
+               year="2023"
+               image="/2023.png"
+               alt="Published my first blockchain research paper"
+               description="Published my first blockchain research paper —proof that I can talk tech AND write!"
+               position="left"
+               delay={0.9}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-80 pr-4 pb-4 pl-4 w-full max-w-2xl h-[80rem] flex flex-col gap-6 relative z-50 -mt-15"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2023 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2023</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2023.png"
+                           alt="Published my first blockchain research paper"
+                           width={2000}
+                           height={1500}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Published my first blockchain research paper —proof that I can talk tech AND write!
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2022 Card */}
+             <DesktopTimelineCard
+               year="2022"
+               image="/2022.png"
+               alt="Graduated and landed a job at Capgemini"
+               description="Graduated and landed a job at Capgemini, one of the world's biggest tech giants."
+               position="center"
+               delay={1.0}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-0 pr-0 pb-0 pl-0 w-full max-w-6xl h-[60rem] flex flex-col gap-6 relative z-50 -mt-8 -mb-8"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2022 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2022</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2022.png"
+                           alt="Graduated and landed a job at Capgemini"
+                           width={30000}
+                           height={22500}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Graduated and landed a job at Capgemini, one of the world's biggest tech giants.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+
+             {/* 2024 Card */}
+             <DesktopTimelineCard
+               year="2024"
+               image="/2024.png"
+               alt="Fueled by success and a recent promotion"
+               description="Fueled by success and a recent promotion, I stepped into a vibrant tech community, exchanging ideas and inspiration. Yet, my passion for learning pushed me to pursue a Master's degree in Computer Science to reach even greater heights."
+               position="right"
+               delay={1.1}
+               className="group"
+             >
+               {(() => {
+                 const [isEmojisActive, setIsEmojisActive] = useState(false);
+                 
+                 return (
+                   <div 
+                     className="timeline-card rounded-2xl pt-40 pr-8 pb-8 pl-8 w-full max-w-3xl h-[25rem] flex flex-col gap-6 relative z-50"
+                     onMouseEnter={() => setIsEmojisActive(true)}
+                     onMouseLeave={() => setIsEmojisActive(false)}
+                   >
+                     <FloatingEmojis2024 isActive={isEmojisActive} />
+                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2024</h3>
+                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                       <div className="mb-4">
+                         <Image
+                           src="/2024.png"
+                           alt="Fueled by success and a recent promotion"
+                           width={400}
+                           height={300}
+                           className="w-full rounded-lg object-cover"
+                         />
+                       </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Fueled by success and a recent promotion, I stepped into a vibrant tech community, exchanging ideas and inspiration. Yet, my passion for learning pushed me to pursue a Master's degree in Computer Science to reach even greater heights.
+                       </p>
+                     </div>
+                   </div>
+                 );
+               })()}
+             </DesktopTimelineCard>
+           </div>
+
+           {/* Fifth Row - 1 card centered (2025) */}
+           <div className="grid grid-cols-1 gap-0 justify-items-center">
+             {/* 2025 Card */}
+             <motion.div
+               initial={{ opacity: 0, y: 50 }}
+               whileInView={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.8, delay: 1.2, ease: "easeOut" }}
+               viewport={{ once: true }}
+               className="group"
+             >
+               <div className="timeline-card rounded-2xl pt-0 pr-12 pb-12 pl-12 w-full max-w-6xl flex flex-col gap-8 relative z-50 -mt-20">
+                 <h3 className="text-8xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0 text-center">2025</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2025.png"
+                       alt="Took a big leap across the globe to the USA"
+                       width={800}
+                       height={400}
+                       className="w-full rounded-lg object-cover"
+                     />
+                   </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Took a big leap across the globe to the USA, enrolling at California State University to dive deeper into research and master the ever-evolving world of technology.
+                   </p>
+                 </div>
                </div>
-               <div>
-                 <h3 className="text-xl font-semibold mb-4">Soft Skills</h3>
-                 <ul className="space-y-2">
-                   <li>• Problem Solving</li>
-                   <li>• Team Collaboration</li>
-                   <li>• Communication</li>
-                   <li>• Adaptability</li>
-                 </ul>
-               </div>
-             </div>
+             </motion.div>
            </div>
          </div>
        </section>
 
-             {/* Hobbies Section */}
-       <section id="hobbies" className="min-h-screen flex items-center justify-center px-4 py-20 bg-neutral-50 dark:bg-neutral-900">
-         <div className="max-w-4xl mx-auto w-full">
-           <h2 className="text-3xl font-bold text-center mb-8">Hobbies & Interests</h2>
-           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
-             <p className="text-lg leading-relaxed">
-               When I'm not coding, I enjoy exploring new technologies, reading tech blogs, 
-               and staying active. I'm always curious about the latest trends in software development.
-             </p>
+       {/* Mobile Journey Section - Only visible on mobile */}
+       <section className="lg:hidden py-16 px-4">
+         <div className="max-w-4xl mx-auto">
+           {/* Title centered */}
+           <div className="mb-8 text-center relative z-30 pointer-events-none">
+             <div className="text-s tracking-[0.25em] uppercase text-muted-foreground dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">LIFE TIMELINE</div>
+             <h2 className="mt-2 text-4xl font-extrabold leading-none">
+               <span className="text-foreground drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">My</span>
+                <span className="animated-gradient font-black drop-shadow-[0_0_10px_rgba(0,0,0,0.08)] dark:drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]">&nbsp;Journey</span>
+             </h2>
+           </div>
+
+           {/* Mobile Cards - Single Column */}
+           <div className="space-y-8">
+             {/* 2000 Card */}
+             <TimelineCard
+               year="2000"
+               image="/2000.png"
+               alt="Born on a warm summer evening in India"
+               description="Born on a warm summer evening in India, little did the world know, a future tech geek had arrived!"
+               position="left"
+               delay={0}
+             />
+
+             {/* 2008 Card */}
+             <TimelineCard
+               year="2008"
+               image="/2008.png"
+               alt="Met a computer for the first time"
+               description="Met a computer for the first time. Accidentally deleted a random file on my dad's work PC... and yes, the computer never woke up again. I also got a legendary scolding!"
+               position="right"
+               delay={0.1}
+             />
+
+             {/* 2010 Card */}
+             <TimelineCard
+               year="2010"
+               image="/2010.png"
+               alt="Discovered video games and music"
+               description="Discovered video games and music —my two favorite ways to procrastinate productively."
+               position="center"
+               delay={0.2}
+             />
+
+             {/* 2012 Card */}
+             <TimelineCard
+               year="2012"
+               image="/2012.png"
+               alt="Got curious about how those mysterious programs worked"
+               description="Got curious about how those mysterious programs worked and started poking around the computer like a tiny hacker."
+               position="left"
+               delay={0.3}
+             />
+
+             {/* 2015 Card */}
+             <TimelineCard
+               year="2015"
+               image="/2015.png"
+               alt="Became a regular at the local repair shop"
+               description="Became a regular at the local repair shop, fixing computers and pretending I was a tech wizard."
+               position="right"
+               delay={0.4}
+             />
+
+             {/* 2017 Card */}
+             <TimelineCard
+               year="2017"
+               image="/2017.png"
+               alt="Started repairing computers for neighbors and friends"
+               description="Started repairing computers for neighbors and friends, building trust and skills in the local community."
+               position="left"
+               delay={0.5}
+             />
+
+             {/* 2018 Card */}
+             <TimelineCard
+               year="2018"
+               image="/2018.png"
+               alt="To explore the binary world further"
+               description="To explore the binary world further, enrolled in Computer Science and Engineering."
+               position="center"
+               delay={0.6}
+             />
+
+             {/* 2019 Card */}
+             <TimelineCard
+               year="2019"
+               image="/2019.png"
+               alt="Built my first AI assistant"
+               description="Built my first AI assistant —felt like Iron Man."
+               position="right"
+               delay={0.7}
+             />
+
+             {/* 2021 Card */}
+             <TimelineCard
+               year="2021"
+               image="/2021.png"
+               alt="Juggled freelance projects while diving into blockchain research"
+               description="Juggled freelance projects while diving into blockchain research —because why not?"
+               position="left"
+               delay={0.8}
+             />
+
+             {/* 2022 Card */}
+             <TimelineCard
+               year="2022"
+               image="/2022.png"
+               alt="Graduated and landed a job at Capgemini"
+               description="Graduated and landed a job at Capgemini, one of the world's biggest tech giants."
+               position="center"
+               delay={0.9}
+             />
+
+             {/* 2023 Card */}
+             <TimelineCard
+               year="2023"
+               image="/2023.png"
+               alt="Published my first blockchain research paper"
+               description="Published my first blockchain research paper —proof that I can talk tech AND write!"
+               position="right"
+               delay={1.0}
+             />
+
+             {/* 2024 Card */}
+             <TimelineCard
+               year="2024"
+               image="/2024.png"
+               alt="Fueled by success and a recent promotion"
+               description="Fueled by success and a recent promotion, I stepped into a vibrant tech community, exchanging ideas and inspiration. Yet, my passion for learning pushed me to pursue a Master's degree in Computer Science to reach even greater heights."
+               position="left"
+               delay={1.1}
+             />
+
+             {/* 2025 Card */}
+             <TimelineCard
+               year="2025"
+               image="/2025.png"
+               alt="Took a big leap across the globe to the USA"
+               description="Took a big leap across the globe to the USA, enrolling at California State University to dive deeper into research and master the ever-evolving world of technology."
+               position="center"
+               delay={1.2}
+             />
            </div>
          </div>
        </section>
 
-             {/* Contact Section */}
+       {/* Contact Section */}
        <section id="contact" className="min-h-screen flex items-center justify-center px-4 py-20">
          <div className="max-w-4xl mx-auto w-full">
            <h2 className="text-3xl font-bold text-center mb-8">Get In Touch</h2>

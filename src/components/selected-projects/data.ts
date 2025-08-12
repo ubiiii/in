@@ -37,7 +37,6 @@ export const PROJECTS: IProject[] = [
     thumbnail: '/projects/thumbnail/ARN.png',
     longThumbnail: '/projects/long/ARN.png',
     images: [
-      '/projects/images/ARN 1.png',
       '/projects/images/ARN 3.png',
       '/projects/images/ARN 4.png',
       '/projects/images/ARN 5.png',
@@ -73,9 +72,9 @@ export const PROJECTS: IProject[] = [
     thumbnail: '/projects/thumbnail/brutalyze-web.png',
     longThumbnail: '/projects/long/brutalyze-web.png',
     images: [
-      '/projects/images/brutalyze-web-1.png',
-      '/projects/images/brutalyze-web-1-2.png',
-      '/projects/images/brutalyze-web-1-3.png',
+      '/projects/images/brutalyze-web.png',
+      '/projects/images/brutalyze-web-2.png',
+      '/projects/images/brutalyze-web-3.png',
     ],
   },
   {
