@@ -134,7 +134,6 @@ export const PROJECTS: IProject[] = [
           <li>✅ Password generator with length and character options</li>
           <li>✅ Copy to clipboard, responsive UI</li>
         </ul>
-        <p><em>Live:</em> <a href="https://shadowkey-yz4y.onrender.com" target="_blank" rel="noopener">shadowkey on Render</a></p>
       </div>
     `,
     role: 'Developer',
