@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 import { PROJECTS } from '@/components/selected-projects/data';
 import MarkdownBody from '@/components/selected-projects/MarkdownBody';
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = PROJECTS.find((p) => p.slug === params.slug);
+export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project = PROJECTS.find((p) => p.slug === slug);
 
   if (!project) {
-    // Trigger app/not-found.tsx
-    // @ts-expect-error next/navigation not typed here
-    return import('next/navigation').then(({ notFound }) => notFound());
+    notFound();
   }
 
   return (

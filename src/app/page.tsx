@@ -34,9 +34,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { selectedProjects } from "@/components/selected-projects/data";
-import { ProjectModal } from "@/components/selected-projects/ProjectModal";
-import { useFluidCursor } from "@/hooks/use-FluidCursor";
+
 
 // Typing Effect Component for Recap
 const TypingRecapItem = ({ text, delay, value, valueColor }: { 
@@ -2691,14 +2689,14 @@ export default function Home() {
              initial={{ opacity: 0, y: 30 }}
              whileInView={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.6, delay: 0.2 }}
-             className="flex flex-col sm:flex-row justify-center items-center gap-6"
+             className="flex flex-row justify-center items-center gap-2 sm:gap-6 flex-wrap"
            >
              <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
                <Button 
                  onClick={() => window.open('mailto:utkarshbalulubal@gmail.com', '_blank')}
-                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-medium cursor-pointer"
                >
-                 <Mail size={22} className="mr-3" />
+                 <Mail size={20} className="mr-2 sm:mr-3" />
                  Email
                </Button>
              </motion.div>
@@ -2706,9 +2704,9 @@ export default function Home() {
              <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
                <Button 
                  onClick={() => window.open('https://github.com/ubiiii', '_blank')}
-                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-medium cursor-pointer"
                >
-                 <Github size={22} className="mr-3" />
+                 <Github size={20} className="mr-2 sm:mr-3" />
                  GitHub
                </Button>
              </motion.div>
@@ -2716,9 +2714,9 @@ export default function Home() {
              <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
                <Button 
                  onClick={() => window.open('https://www.linkedin.com/in/utkarsh-lubal/', '_blank')}
-                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-6 sm:px-10 py-3 sm:py-4 text-base sm:text-lg font-medium cursor-pointer"
                >
-                 <Linkedin size={22} className="mr-3" />
+                 <Linkedin size={20} className="mr-2 sm:mr-3" />
                  LinkedIn
                </Button>
              </motion.div>
