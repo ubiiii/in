@@ -274,6 +274,140 @@ export const PROJECTS: IProject[] = [
     longThumbnail: '/projects/thumbnail/Cyber Security.jpg',
     images: [],
   },
+  {
+    title: 'Skills',
+    slug: 'skills',
+    year: 2025,
+    type: 'Project',
+    description: `
+      <div class="space-y-8 bg-transparent">
+        <!-- Top Ornament Image with 3D Rotation -->
+        <div class="relative flex flex-col items-center text-center">
+                     <div class="relative h-[300px] w-[300px] overflow-hidden mb-[-120px] z-0">
+                         <img
+               src="/skills.png"
+               alt="3D Skills Orb"
+               class="w-full h-full animate-[spin_30s_linear_infinite] mask-gradient drop-shadow-2xl"
+             />
+          </div>
+          
+          
+        </div>
+
+        <!-- Tech Stack Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12">
+          <!-- Frontend Skills -->
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+            <span class="text-2xl">⚛️</span>
+            <span class="text-white font-medium">React</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">⚡</span>
+            <span class="text-white font-medium">Next.js</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">📘</span>
+            <span class="text-white font-medium">TypeScript</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20">
+            <span class="text-2xl">🎨</span>
+            <span class="text-white font-medium">Tailwind CSS</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+            <span class="text-2xl">📱</span>
+            <span class="text-white font-medium">React Native</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+            <span class="text-2xl">🎬</span>
+            <span class="text-white font-medium">Framer Motion</span>
+          </div>
+
+          <!-- Backend Skills -->
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+            <span class="text-2xl">🟢</span>
+            <span class="text-white font-medium">Node.js</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-yellow-500/20">
+            <span class="text-2xl">🐍</span>
+            <span class="text-white font-medium">Python</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">🍃</span>
+            <span class="text-white font-medium">Express</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+            <span class="text-2xl">🗄️</span>
+            <span class="text-white font-medium">MongoDB</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">🐘</span>
+            <span class="text-white font-medium">PostgreSQL</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+            <span class="text-2xl">🔍</span>
+            <span class="text-white font-medium">GraphQL</span>
+          </div>
+
+          <!-- Emerging Technologies -->
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20">
+            <span class="text-2xl">⛓️</span>
+            <span class="text-white font-medium">Blockchain</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+            <span class="text-2xl">🤖</span>
+            <span class="text-white font-medium">AI/ML</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">☁️</span>
+            <span class="text-white font-medium">Cloud Computing</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20">
+            <span class="text-2xl">🛡️</span>
+            <span class="text-white font-medium">Cybersecurity</span>
+          </div>
+
+          <!-- Development Tools -->
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/20">
+            <span class="text-2xl">📦</span>
+            <span class="text-white font-medium">Git</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20">
+            <span class="text-2xl">🐳</span>
+            <span class="text-white font-medium">Docker</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20">
+            <span class="text-2xl">🔄</span>
+            <span class="text-white font-medium">CI/CD</span>
+          </div>
+          
+          <div class="flex items-center gap-3 px-4 py-3 rounded-full bg-[#111] hover:bg-[#1a1a1a] transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+            <span class="text-2xl">🧪</span>
+            <span class="text-white font-medium">Testing</span>
+          </div>
+        </div>
+      </div>
+    `,
+    role: 'Full-Stack Developer',
+    techStack: [],
+    thumbnail: '/projects/thumbnail/blockchain.jpg',
+    longThumbnail: '/projects/thumbnail/blockchain.jpg',
+    images: [],
+  },
 ];
 
 

@@ -659,7 +659,7 @@ export default function Home() {
           className="hidden bg-gradient-to-b from-neutral-500/10 to-neutral-500/0 bg-clip-text text-[10rem] leading-none font-black text-transparent select-none sm:block lg:text-[16rem]"
           style={{ marginBottom: '-2.5rem' }}
         >
-             Utkarsh
+             Au revoir!!
         </div>
       </div>
 
@@ -1833,12 +1833,14 @@ export default function Home() {
                    <div id="projects-right-col" className="rounded-[1.3rem] p-[4px] border-2 border-white/60 dark:border-white/30 bg-white/30 dark:bg-black/25 backdrop-blur-md">
                      {/* Content container with its own subtle border */}
                      <div className="rounded-2xl p-6 md:p-8 shadow-lg h-[78vh] overflow-y-auto scrollbar-hide">
-                       <div className="mb-4">
-                         <h3 className="text-sm uppercase tracking-wider text-muted-foreground">
-                           {selectedProject?.slug === 'blockchain-cloudguard' ? 'Research details' : 
-                            selectedProject?.slug === 'python-ethical-hacking' || selectedProject?.slug === 'cyber-security' ? 'Certification details' : 'Project details'}
-                         </h3>
-                       </div>
+                       {selectedProject?.slug !== 'skills' && (
+                         <div className="mb-4">
+                           <h3 className="text-sm uppercase tracking-wider text-muted-foreground">
+                             {selectedProject?.slug === 'blockchain-cloudguard' ? 'Research details' : 
+                              selectedProject?.slug === 'python-ethical-hacking' || selectedProject?.slug === 'cyber-security' ? 'Certification details' : 'Project details'}
+                           </h3>
+                         </div>
+                       )}
                        {/* React-rendered details */}
                        <AnimatePresence mode="wait">
                          {selectedProject && (
@@ -2017,22 +2019,22 @@ export default function Home() {
                      onMouseLeave={() => setIsConfettiActive(false)}
                    >
                      <Confetti isActive={isConfettiActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2000</h3>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2000</h3>
                      <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2000.png"
-                           alt="Born on a warm summer evening in India"
-                           width={600}
-                           height={450}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Born on a warm summer evening in India, little did the world know, a future tech geek had arrived!
-                       </p>
-                     </div>
+                   <div className="mb-4">
+                     <Image
+                       src="/2000.png"
+                       alt="Born on a warm summer evening in India"
+                       width={600}
+                       height={450}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Born on a warm summer evening in India, little did the world know, a future tech geek had arrived!
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2057,22 +2059,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2008 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2008</h3>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2008</h3>
                      <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2008.png"
-                           alt="Met a computer for the first time"
-                           width={400}
-                           height={300}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Met a computer for the first time. Accidentally deleted a random file on my dad's work PC... and yes, the computer never woke up again. I also got a legendary scolding!
-                       </p>
-                     </div>
+                   <div className="mb-4">
+                     <Image
+                       src="/2008.png"
+                       alt="Met a computer for the first time"
+                       width={400}
+                       height={300}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Met a computer for the first time. Accidentally deleted a random file on my dad's work PC... and yes, the computer never woke up again. I also got a legendary scolding!
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2097,22 +2099,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2010 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2010</h3>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2010</h3>
                      <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2010.png"
-                           alt="Discovered video games and music"
-                           width={400}
-                           height={300}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Discovered video games and music —my two favorite ways to procrastinate productively.
-                       </p>
-                     </div>
+                   <div className="mb-4">
+                     <Image
+                       src="/2010.png"
+                       alt="Discovered video games and music"
+                       width={400}
+                       height={300}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Discovered video games and music —my two favorite ways to procrastinate productively.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2140,22 +2142,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2012 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2012</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2012.png"
-                           alt="Got curious about how those mysterious programs worked"
-                           width={600}
-                           height={450}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Got curious about how those mysterious programs worked and started poking around the computer like a tiny hacker.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2012</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2012.png"
+                       alt="Got curious about how those mysterious programs worked"
+                       width={600}
+                       height={450}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Got curious about how those mysterious programs worked and started poking around the computer like a tiny hacker.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2180,22 +2182,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2015 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2015</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2015.png"
-                           alt="Became a regular at the local repair shop"
-                           width={1400}
-                           height={1050}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Became a regular at the local repair shop, fixing computers and pretending I was a tech wizard.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2015</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2015.png"
+                       alt="Became a regular at the local repair shop"
+                       width={1400}
+                       height={1050}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Became a regular at the local repair shop, fixing computers and pretending I was a tech wizard.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2220,22 +2222,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2017 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2017</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2017.png"
-                           alt="Started repairing computers for neighbors and friends"
-                           width={600}
-                           height={450}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Started repairing computers for neighbors and friends, building trust and skills in the local community.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2017</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2017.png"
+                       alt="Started repairing computers for neighbors and friends"
+                       width={600}
+                       height={450}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Started repairing computers for neighbors and friends, building trust and skills in the local community.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2263,22 +2265,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2019 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2019</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2019.png"
-                           alt="Built my first AI assistant"
-                           width={9600}
-                           height={7200}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Built my first AI assistant —felt like Iron Man.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2019</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2019.png"
+                       alt="Built my first AI assistant"
+                       width={9600}
+                       height={7200}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                         Built my first AI assistant —felt like Iron Man.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2303,22 +2305,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2018 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2018</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2018.png"
-                           alt="To explore the binary world further"
-                           width={4000}
-                           height={3000}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         To explore the binary world further, enrolled in Computer Science and Engineering.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2018</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2018.png"
+                       alt="To explore the binary world further"
+                       width={4000}
+                       height={3000}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     To explore the binary world further, enrolled in Computer Science and Engineering.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2343,22 +2345,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2021 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2021</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2021.png"
-                           alt="Juggled freelance projects while diving into blockchain research"
-                           width={1800}
-                           height={1350}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Juggled freelance projects while diving into blockchain research —because why not?
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2021</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2021.png"
+                       alt="Juggled freelance projects while diving into blockchain research"
+                       width={1800}
+                       height={1350}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Juggled freelance projects while diving into blockchain research —because why not?
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2386,22 +2388,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2023 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2023</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2023.png"
-                           alt="Published my first blockchain research paper"
-                           width={2000}
-                           height={1500}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Published my first blockchain research paper —proof that I can talk tech AND write!
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2023</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2023.png"
+                       alt="Published my first blockchain research paper"
+                       width={2000}
+                       height={1500}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Published my first blockchain research paper —proof that I can talk tech AND write!
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2426,22 +2428,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2022 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2022</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2022.png"
-                           alt="Graduated and landed a job at Capgemini"
-                           width={30000}
-                           height={22500}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Graduated and landed a job at Capgemini, one of the world's biggest tech giants.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2022</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2022.png"
+                       alt="Graduated and landed a job at Capgemini"
+                       width={30000}
+                       height={22500}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Graduated and landed a job at Capgemini, one of the world's biggest tech giants.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2466,22 +2468,22 @@ export default function Home() {
                      onMouseLeave={() => setIsEmojisActive(false)}
                    >
                      <FloatingEmojis2024 isActive={isEmojisActive} />
-                     <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2024</h3>
-                     <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
-                       <div className="mb-4">
-                         <Image
-                           src="/2024.png"
-                           alt="Fueled by success and a recent promotion"
-                           width={400}
-                           height={300}
-                           className="w-full rounded-lg object-cover"
-                         />
-                       </div>
-                       <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
-                         Fueled by success and a recent promotion, I stepped into a vibrant tech community, exchanging ideas and inspiration. Yet, my passion for learning pushed me to pursue a Master's degree in Computer Science to reach even greater heights.
-                       </p>
-                     </div>
+                 <h3 className="text-5xl font-bold font-mono text-neutral-900 dark:text-white tracking-wider m-0">2024</h3>
+                 <div className="bg-white dark:bg-neutral-800 rounded-xl p-4 shadow-lg">
+                   <div className="mb-4">
+                     <Image
+                       src="/2024.png"
+                       alt="Fueled by success and a recent promotion"
+                       width={400}
+                       height={300}
+                       className="w-full rounded-lg object-cover"
+                     />
                    </div>
+                   <p className="text-2xl text-neutral-900 dark:text-white leading-relaxed m-0">
+                     Fueled by success and a recent promotion, I stepped into a vibrant tech community, exchanging ideas and inspiration. Yet, my passion for learning pushed me to pursue a Master's degree in Computer Science to reach even greater heights.
+                   </p>
+                 </div>
+               </div>
                  );
                })()}
              </DesktopTimelineCard>
@@ -2666,26 +2668,75 @@ export default function Home() {
          </div>
        </section>
 
-       {/* Contact Section */}
-       <section id="contact" className="min-h-screen flex items-center justify-center px-4 py-20">
-         <div className="max-w-4xl mx-auto w-full">
-           <h2 className="text-3xl font-bold text-center mb-8">Get In Touch</h2>
-           <div className="bg-white/30 backdrop-blur-lg rounded-2xl p-8 border border-neutral-200 dark:border-neutral-700">
-             <div className="flex flex-col md:flex-row justify-center items-center gap-6">
-               <Button className="flex items-center gap-2">
-                 <Mail size={20} />
-                 Contact Me
+             {/* Contact Section */}
+       <section id="contact" className="px-4 py-12 relative overflow-hidden">
+         {/* Background decoration */}
+         <div className="absolute inset-0 "></div>
+         <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-xl opacity-20 animate-pulse"></div>
+         <div className="absolute bottom-10 right-10 w-32 h-32 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full blur-xl opacity-20 animate-pulse delay-1000"></div>
+         
+         <div className="max-w-4xl mx-auto w-full relative z-10">
+           <motion.div
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.6 }}
+             className="text-center mb-8"
+           >
+             <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent leading-tight">
+               Ready to collaborate on something amazing?
+             </h2>
+           </motion.div>
+
+           <motion.div
+             initial={{ opacity: 0, y: 30 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.6, delay: 0.2 }}
+             className="flex flex-col sm:flex-row justify-center items-center gap-6"
+           >
+             <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
+               <Button 
+                 onClick={() => window.open('mailto:utkarshbalulubal@gmail.com', '_blank')}
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+               >
+                 <Mail size={22} className="mr-3" />
+                 Email
                </Button>
-               <Button variant="outline" className="flex items-center gap-2">
-                 <Github size={20} />
+             </motion.div>
+             
+             <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
+               <Button 
+                 onClick={() => window.open('https://github.com/ubiiii', '_blank')}
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+               >
+                 <Github size={22} className="mr-3" />
                  GitHub
                </Button>
-               <Button variant="outline" className="flex items-center gap-2">
-                 <Linkedin size={20} />
+             </motion.div>
+             
+             <motion.div whileHover={{ y: -3, scale: 1.05 }} transition={{ duration: 0.2 }}>
+               <Button 
+                 onClick={() => window.open('https://www.linkedin.com/in/utkarsh-lubal/', '_blank')}
+                 className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-lg border border-white/30 dark:border-gray-600/30 text-gray-800 dark:text-gray-200 hover:bg-white/30 dark:hover:bg-gray-800/30 shadow-lg hover:shadow-xl transition-all duration-300 px-10 py-4 text-lg font-medium cursor-pointer"
+               >
+                 <Linkedin size={22} className="mr-3" />
                  LinkedIn
                </Button>
+             </motion.div>
+           </motion.div>
+
+           <motion.div
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             transition={{ duration: 0.6, delay: 0.4 }}
+             className="text-center mt-6"
+           >
+             <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-lg rounded-full border border-neutral-200 dark:border-neutral-700">
+               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+               <span className="text-m text-gray-600 dark:text-gray-300">
+                 Available for new opportunities
+               </span>
              </div>
-           </div>
+           </motion.div>
          </div>
        </section>
 

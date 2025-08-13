@@ -25,7 +25,11 @@ const Project = ({ index, project, selectedProject, onMouseEnter, onClick }: Pro
   });
 
   const handleMouseEnter = contextSafe?.(() => {
+    // Always call onMouseEnter for container hover effects
     onMouseEnter(project.slug);
+    
+    // Skip Skills project-specific animations
+    if (project.slug === 'skills') return;
 
     const arrowLine = externalLinkSVGRef.current?.querySelector('#arrow-line') as SVGPathElement;
     const arrowCurb = externalLinkSVGRef.current?.querySelector('#arrow-curb') as SVGPathElement;
@@ -62,7 +66,12 @@ const Project = ({ index, project, selectedProject, onMouseEnter, onClick }: Pro
   return (
     <TransitionLink
       href={undefined as any}
-      className="project-item group leading-none py-5 md:border-b first:!pt-0 last:pb-0 last:border-none md:group-hover/projects:opacity-30 md:hover:!opacity-100 transition-all duration-500 will-change-transform transform-gpu md:group-hover/projects:-translate-x-2 md:hover:translate-x-0"
+      className={cn(
+        "project-item group leading-none py-5 md:border-b first:!pt-0 last:pb-0 last:border-none transition-all duration-500 will-change-transform transform-gpu",
+        project.slug === 'skills' 
+          ? "md:group-hover/projects:opacity-30 md:hover:!opacity-100 md:group-hover/projects:-translate-x-2 md:hover:translate-x-0" 
+          : "md:group-hover/projects:opacity-30 md:hover:!opacity-100 md:group-hover/projects:-translate-x-2 md:hover:translate-x-0"
+      )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={(e: any) => { e.preventDefault(); onClick?.(); }}
@@ -83,9 +92,17 @@ const Project = ({ index, project, selectedProject, onMouseEnter, onClick }: Pro
       <div className="flex gap-2 md:gap-5">
         <div className="font-anton text-muted-foreground font-semibold">_{(index + 1).toString().padStart(2, '0')}.</div>
         <div>
-          <h4 className="text-4xl xs:text-6xl flex gap-4 font-anton font-extrabold text-foreground transition-[color,background-position] duration-700 bg-[length:200%_100%] bg-[right_center] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-[left_center] project-title-gradient">
+          <h4 className={cn(
+            "text-4xl xs:text-6xl flex gap-4 font-anton font-extrabold text-foreground transition-[color,background-position] duration-700",
+            project.slug === 'skills'
+              ? "text-foreground"
+              : "bg-[length:200%_100%] bg-[right_center] group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-[left_center] project-title-gradient"
+          )}>
             {project.title}
-            <span className="text-foreground opacity-0 group-hover:opacity-100 transition-all">
+            <span className={cn(
+              "text-foreground transition-all",
+              project.slug === 'skills' ? "opacity-0" : "opacity-0 group-hover:opacity-100"
+            )}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="36"

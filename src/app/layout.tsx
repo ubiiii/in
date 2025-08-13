@@ -32,7 +32,7 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Utkarsh Lubal Portfolio",
+  title: "Utkarsh Lubal",
   description: "Interactive portfolio with an AI-powered Memoji that answers questions about me, my skills, and my experience",
   keywords: [
     "Utkarsh Lubal", 
@@ -57,13 +57,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://utkarshlubal.com",
-    title: "Utkarsh Lubal Portfolio",
+    title: "Utkarsh Lubal",
     description: "Interactive portfolio with an AI-powered Memoji that answers questions about me",
-    siteName: "Utkarsh Lubal Portfolio",
+    siteName: "Utkarsh Lubal",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Utkarsh Lubal Portfolio",
+    title: "Utkarsh Lubal",
     description: "Interactive portfolio with an AI-powered Memoji that answers questions about me",
     creator: "@utkarshlubal",
   },

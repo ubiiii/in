@@ -10,6 +10,7 @@ import Image from 'next/image';
 import React, { useRef, useState, MouseEvent } from 'react';
 import Project from './Project';
 import ProjectModal from './ProjectModal';
+import ProjectTypeBadge from './ProjectTypeBadge';
 import { motion } from 'framer-motion';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -97,7 +98,7 @@ const ProjectList = ({ onSelect }: ListProps) => {
   return (
     <section className="relative z-20 pb-[250px]" id="selected-projects">
       <div className="w-full pl-[10px] pr-0">
-        <div className="group/projects flex justify-left" ref={containerRef}>
+        <div className="group/projects flex flex-col justify-left" ref={containerRef}>
           {/* Floating preview at section level */}
           {selectedProject !== null && (
             <div
@@ -120,9 +121,10 @@ const ProjectList = ({ onSelect }: ListProps) => {
             </div>
           )}
 
-          <div className="w-full rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 bg-white/30 dark:bg-black/25 backdrop-blur-md p-6 md:p-8 shadow-lg overflow-hidden ml-0 mr-auto">
+          {/* First container for first 7 projects */}
+          <div className="w-full rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 bg-white/30 dark:bg-black/25 backdrop-blur-md p-6 md:p-8 shadow-lg overflow-hidden ml-0 mr-auto mb-8">
             <div className="flex flex-col max-md:gap-10" ref={projectListRef}>
-              {PROJECTS.map((project: IProject, index: number) => (
+              {PROJECTS.slice(0, 7).map((project: IProject, index: number) => (
                 <Project
                   index={index}
                   project={project}
@@ -134,14 +136,37 @@ const ProjectList = ({ onSelect }: ListProps) => {
               ))}
             </div>
           </div>
-          {!onSelect && (
-            <ProjectModal
-              open={modalOpen}
-              project={PROJECTS.find((p) => p.slug === selectedProject) ?? null}
-              onClose={() => setModalOpen(false)}
-            />
-          )}
+
         </div>
+
+                 {/* Second container for Skills project - Independent from group hover */}
+         <div className="w-full rounded-2xl border border-neutral-200/60 dark:border-neutral-700/60 bg-white/30 dark:bg-black/25 backdrop-blur-md p-6 md:p-8 shadow-lg overflow-hidden ml-0 mr-auto">
+           <div className="flex flex-col max-md:gap-10">
+             {PROJECTS.slice(7).map((project: IProject, index: number) => (
+               <div 
+                 key={project.slug} 
+                 className="py-5 md:border-b first:!pt-0 last:pb-0 last:border-none cursor-pointer hover:opacity-80 transition-opacity"
+                 onClick={() => handleProjectClick(project.slug)}
+               >
+                 <div className="flex gap-2 md:gap-5">
+                   <div>
+                     <h4 className="text-4xl xs:text-6xl flex gap-4 font-anton font-extrabold text-foreground transition-[color,background-position] duration-700 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-pink-500 hover:to-blue-500 hover:bg-[length:200%_100%] hover:bg-[left_center]">
+                       {project.title}
+                     </h4>
+                   </div>
+                 </div>
+               </div>
+             ))}
+           </div>
+         </div>
+
+        {!onSelect && (
+          <ProjectModal
+            open={modalOpen}
+            project={PROJECTS.find((p) => p.slug === selectedProject) ?? null}
+            onClose={() => setModalOpen(false)}
+          />
+        )}
       </div>
     </section>
   );

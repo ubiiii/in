@@ -4,6 +4,7 @@ import type { IProject } from './types';
 import MarkdownBody from './MarkdownBody';
 import TechIcon from './TechIcon';
 import { ExternalLink, Github } from 'lucide-react';
+import Skills from '../skills';
 
 interface Props {
   project: IProject | null;
@@ -35,6 +36,20 @@ const ProjectDetails = ({ project }: Props) => {
   };
 
   const projectButton = getProjectButton();
+
+  // For Skills project, render the Skills component directly
+  if (project.slug === 'skills') {
+    return (
+      <div className="min-h-[70vh]">
+        <Skills 
+          title="The Secret Sauce"
+          subtitle="MY SKILLS"
+          backgroundImage="/skills.png"
+          className="min-h-[70vh] bg-transparent"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">

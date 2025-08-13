@@ -35,7 +35,9 @@ const ProjectModal = ({ open, project, onClose }: Props) => {
       aria-modal="true"
     >
       <div
-        className="relative w-full max-w-4xl rounded-2xl bg-card text-card-foreground border border-border shadow-2xl overflow-hidden"
+        className={`relative w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden ${
+          project.slug === 'skills' ? 'bg-transparent' : 'bg-card text-card-foreground border border-border'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         <button

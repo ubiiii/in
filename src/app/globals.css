@@ -484,3 +484,23 @@ pre {
     background-position: 0% 50%;
   }
 }
+
+/* Mask gradient for 3D rotating image */
+.mask-gradient {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+/* Continuous rotation animation */
+.rotate-continuous {
+  animation: spin 30s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
