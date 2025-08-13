@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 export async function GET(req: Request) {
   const res = await fetch('https://api.github.com/repos/toukoum/portfolio', {
     headers: {
