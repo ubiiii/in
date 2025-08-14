@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
+import "./glob.css";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 // Load premium fonts
