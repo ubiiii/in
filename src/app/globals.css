@@ -98,18 +98,175 @@
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.552 0.016 285.938);
   --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-2: oklch(0.488 0.243 264.376);
+  --chart-3: oklch(0.488 0.243 264.376);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.488 0.243 264.376);
   --sidebar: oklch(0.21 0.006 285.885);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.92 0.004 286.32);
+  --sidebar-primary-foreground: oklch(0.21 0.006 285.885);
   --sidebar-accent: oklch(0.274 0.006 286.033);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.552 0.016 285.938);
+}
+
+/* Fix for 80% zoom to 100% zoom scaling */
+/* Scale down oversized elements to work better at normal zoom */
+
+/* Reduce very large font sizes */
+.text-7xl {
+  font-size: 4.5rem !important;
+  line-height: 1 !important;
+}
+
+.text-8xl {
+  font-size: 5rem !important;
+  line-height: 1 !important;
+}
+
+.text-9xl {
+  font-size: 5.5rem !important;
+  line-height: 1 !important;
+}
+
+/* Fix specific oversized text classes */
+.text-\[4\.5rem\] {
+  font-size: 3.5rem !important;
+  line-height: 1.1 !important;
+}
+
+/* Reduce timeline card sizes */
+.timeline-card {
+  max-width: 90% !important;
+}
+
+/* Adjust hero section spacing */
+.min-h-screen {
+  min-height: 90vh !important;
+}
+
+/* Reduce button and card padding */
+.py-8 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.py-10 {
+  padding-top: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.py-12 {
+  padding-top: 2.5rem !important;
+  padding-bottom: 2.5rem !important;
+}
+
+/* Adjust grid gaps */
+.gap-6 {
+  gap: 1.25rem !important;
+}
+
+.gap-8 {
+  gap: 1.5rem !important;
+}
+
+/* Reduce section padding */
+.py-20 {
+  padding-top: 4rem !important;
+  padding-bottom: 4rem !important;
+}
+
+.py-16 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+/* Adjust container max-widths */
+.max-w-4xl {
+  max-width: 60rem !important;
+}
+
+.max-w-6xl {
+  max-width: 70rem !important;
+}
+
+.max-w-8xl {
+  max-width: 80rem !important;
+}
+
+.max-w-9xl {
+  max-width: 90rem !important;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .text-4xl {
+    font-size: 2rem !important;
+  }
+  
+  .text-5xl {
+    font-size: 2.5rem !important;
+  }
+  
+  .text-6xl {
+    font-size: 3rem !important;
+  }
+  
+  .text-7xl {
+    font-size: 3.5rem !important;
+  }
+  
+  .text-8xl {
+    font-size: 4rem !important;
+  }
+  
+  .text-9xl {
+    font-size: 4.5rem !important;
+  }
+  
+  .text-\[4\.5rem\] {
+    font-size: 2.5rem !important;
+  }
+}
+
+/* Additional responsive fixes */
+@media (max-width: 1024px) {
+  .lg\:text-\[4\.5rem\] {
+    font-size: 3rem !important;
+  }
+  
+  .lg\:text-6xl {
+    font-size: 3.5rem !important;
+  }
+  
+  .lg\:text-7xl {
+    font-size: 4rem !important;
+  }
+}
+
+/* Fix for the main hero title */
+.text-4xl.sm\:text-5xl.md\:text-6xl.lg\:text-\[4\.5rem\] {
+  font-size: 2.5rem !important;
+}
+
+@media (min-width: 640px) {
+  .text-4xl.sm\:text-5xl.md\:text-6xl.lg\:text-\[4\.5rem\] {
+    font-size: 3rem !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .text-4xl.sm\:text-5xl.md\:text-6xl.lg\:text-\[4\.5rem\] {
+    font-size: 3.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .text-4xl.sm\:text-5xl.md\:text-6xl.lg\:text-\[4\.5rem\] {
+    font-size: 3.5rem !important;
+  }
 }
 
 @layer base {
