@@ -7,6 +7,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
     dangerouslyAllowSVG: true,
+    loader: 'default',
+    path: process.env.NODE_ENV === 'production' ? '/in' : '',
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'assets.aceternity.com' },
@@ -15,6 +17,10 @@ const nextConfig = {
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  // Ensure static assets are properly handled
+  experimental: {
+    optimizePackageImports: ['@radix-ui/react-icons'],
   },
 };
 

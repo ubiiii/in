@@ -40,6 +40,12 @@ jobs:
       - name: Build with Next.js
         run: pnpm run build
         
+      - name: Fix image paths for GitHub Pages
+        run: |
+          # Create a script to fix image paths
+          find ./out -name "*.html" -type f -exec sed -i 's|src="/|src="/in/|g' {} \;
+          find ./out -name "*.html" -type f -exec sed -i 's|href="/|href="/in/|g' {} \;
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
