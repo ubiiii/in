@@ -2,13 +2,10 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: process.env.NODE_ENV === 'production' ? '/in' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/in/' : '',
   images: {
     unoptimized: true,
     dangerouslyAllowSVG: true,
     loader: 'default',
-    path: process.env.NODE_ENV === 'production' ? '/in' : '',
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' },
       { protocol: 'https', hostname: 'assets.aceternity.com' },

@@ -3,6 +3,8 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -24,38 +26,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+          cache: 'npm'
           
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 8
-          
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-          
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-            
       - name: Install dependencies
-        run: pnpm install
+        run: npm ci
         
       - name: Build with Next.js
-        run: pnpm run build
-        
-      - name: Fix asset paths for GitHub Pages
-        run: |
-          # Fix image and CSS paths for GitHub Pages
-          find ./out -name "*.html" -type f -exec sed -i 's|src="/|src="/in/|g' {} \;
-          find ./out -name "*.html" -type f -exec sed -i 's|href="/|href="/in/|g' {} \;
-          find ./out -name "*.html" -type f -exec sed -i 's|url("/|url("/in/|g' {} \;
-          find ./out -name "*.css" -type f -exec sed -i 's|url("/|url("/in/|g' {} \;
+        run: npm run build
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
