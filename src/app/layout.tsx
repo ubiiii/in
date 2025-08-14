@@ -71,13 +71,13 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "./favicons.png",
+        url: "/favicons.png",
         sizes: "any",
         type: "image/png",
       }
     ],
-    shortcut: "./favicons.png",
-    apple: "./favicons.png",
+    shortcut: "/favicons.png",
+    apple: "/favicons.png",
   },
 };
 
@@ -90,9 +90,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
              <head>
          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-         <link rel="icon" href="./favicons.png" sizes="any" type="image/png" />
-         <link rel="shortcut icon" href="./favicons.png" type="image/png" />
-         <link rel="apple-touch-icon" href="./favicons.png" />
+         <link rel="icon" href="/favicons.png" sizes="any" type="image/png" />
+         <link rel="shortcut icon" href="/favicons.png" type="image/png" />
+         <link rel="apple-touch-icon" href="/favicons.png" />
        </head>
       <body
         className={cn(
