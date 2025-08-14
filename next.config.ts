@@ -2,6 +2,8 @@
 const nextConfig = {
   output: 'export',
   trailingSlash: true,
+  basePath: process.env.NODE_ENV === 'production' ? '/in' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/in/' : '',
   images: {
     unoptimized: true,
     dangerouslyAllowSVG: true,
@@ -12,7 +14,6 @@ const nextConfig = {
     ],
   },
   eslint: {
-    // Ne bloque PAS le build en cas d'erreurs eslint
     ignoreDuringBuilds: true,
   },
 };
